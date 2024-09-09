@@ -5,4 +5,7 @@
     <string name="first_game_btn">first game btn</string>
     <string name="second_game_btn">second game btn</string>
     <string name="three_game_btn">three_game_btn</string>
+    <string name="btn_first_day">btn first day</string>
+    <string name="btn_second_day">btn second day</string>
+    <string name="three_day_btn">three day btn</string>
 </resources>

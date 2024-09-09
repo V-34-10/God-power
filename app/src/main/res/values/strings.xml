@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">Divine Power</string>
     <string name="play_btn">play button</string>
+
     <string name="back_btn">back button</string>
     <string name="first_game_btn">first game btn</string>
     <string name="second_game_btn">second game btn</string>
     <string name="three_game_btn">three_game_btn</string>
+
     <string name="btn_first_day">btn first day</string>
     <string name="btn_second_day">btn second day</string>
     <string name="three_day_btn">three day btn</string>
+
+    <string name="title_settings">Settings</string>
+    <string name="read_privacy_text"><u>reset score</u></string>
+    <string name="text_title_music">MUSIC</string>
+    <string name="text_title_sound">SOUND</string>
 </resources>

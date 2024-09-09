@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Divine Power</string>
+    <string name="play_btn">play button</string>
+    <string name="back_btn">back button</string>
+    <string name="first_game_btn">first game btn</string>
+    <string name="second_game_btn">second game btn</string>
+    <string name="three_game_btn">three_game_btn</string>
 </resources>

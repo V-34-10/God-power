@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -33,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -42,7 +46,19 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation("com.appodeal.ads:sdk:3.3.2.0") {
+        exclude(group = "com.appodeal.ads.sdk.networks", module = "yandex")
+        exclude(group = "com.appodeal.ads.sdk.services", module = "adjust")
+        exclude(group = "com.appodeal.ads.sdk.services", module = "appsflyer")
+        exclude(group = "com.appodeal.ads.sdk.services", module = "facebook_analytics")
+        exclude(group = "com.appodeal.ads.sdk.services", module = "firebase")
+        exclude(group = "com.applovin.mediation", module = "yandex-adapter")
+    }
+    implementation(libs.max.mediation)
 }

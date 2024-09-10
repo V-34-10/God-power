@@ -15,4 +15,10 @@
     <string name="read_privacy_text"><u>reset score</u></string>
     <string name="text_title_music">MUSIC</string>
     <string name="text_title_sound">SOUND</string>
+
+    <string name="title_rules">Rules</string>
+    <string name="text_rules_first_game">Your goal is to memorize the location of the items and resume when the game starts. You win if you get it right. If you get even one element wrong, the round is over.</string>
+    <string name="text_rules_second_game">Your task is to open cards with the same image of animals. \nWhen the time is up, but not all cards have been opened, the game is over and it is lost\n\nGood luck!</string>
+    <string name="text_rules_three_game">The objective of the puzzle game is to solve a given puzzle or set of puzzles within a specified time limit or number of moves.</string>
+
 </resources>

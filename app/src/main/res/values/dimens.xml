@@ -5,4 +5,5 @@
     <dimen name="sp64">64sp</dimen>
     <dimen name="sp35">35sp</dimen>
     <dimen name="sp45">45sp</dimen>
+    <dimen name="sp25">25sp</dimen>
 </resources>

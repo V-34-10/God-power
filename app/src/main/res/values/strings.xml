@@ -24,5 +24,7 @@
     <string name="easy_level_btn">easy level btn</string>
     <string name="medium_level_btn">medium level btn</string>
     <string name="hard_level_btn">hard level btn</string>
+    <string name="next_btn">next btn</string>
+    <string name="restart_btn">restart btn</string>
 
 </resources>

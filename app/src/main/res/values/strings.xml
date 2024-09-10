@@ -21,12 +21,11 @@
     <string name="text_rules_second_game">Your task is to open cards with the same image of animals. \nWhen the time is up, but not all cards have been opened, the game is over and it is lost\n\nGood luck!</string>
     <string name="text_rules_three_game">The objective of the puzzle game is to solve a given puzzle or set of puzzles within a specified time limit or number of moves.</string>
 
-    <string name="easy_level_btn">easy level btn</string>
-    <string name="medium_level_btn">medium level btn</string>
-    <string name="hard_level_btn">hard level btn</string>
+    <string name="easy_level_btn">Easy</string>
+    <string name="medium_level_btn">Medium</string>
+    <string name="hard_level_btn">Hard</string>
+
     <string name="next_btn">next btn</string>
     <string name="restart_btn">restart btn</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

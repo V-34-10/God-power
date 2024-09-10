@@ -3,6 +3,7 @@
     <style name="Base.Theme.DivinePower" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
     <style name="Theme.DivinePower" parent="Base.Theme.DivinePower" />

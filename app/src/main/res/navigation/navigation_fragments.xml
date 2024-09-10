@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_fragments.xml"
+    app:startDestination="@id/memorize_game">
+
+    <fragment
+        android:id="@+id/memorize_game"
+        android:name="com.divinee.puwer.MemorizeGameFragment"
+        android:label="@string/first_game_btn"
+        tools:layout="@layout/fragment_memorize_game" />
+
+    <fragment
+        android:id="@+id/find_cards_game"
+        android:name="com.divinee.puwer.FindCardsGameFragment"
+        android:label="@string/second_game_btn"
+        tools:layout="@layout/fragment_find_cards_game" />
+
+    <fragment
+        android:id="@+id/puzzle_game"
+        android:name="com.divinee.puwer.PuzzleGameFragment"
+        android:label="@string/three_game_btn"
+        tools:layout="@layout/fragment_puzzle_game" />
+
+</navigation>

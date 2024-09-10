@@ -3,9 +3,9 @@
     <string name="play_btn">play button</string>
 
     <string name="back_btn">back button</string>
-    <string name="first_game_btn">first game btn</string>
-    <string name="second_game_btn">second game btn</string>
-    <string name="three_game_btn">three_game_btn</string>
+    <string name="first_game_btn">MemorizeGame</string>
+    <string name="second_game_btn">FindCardsGame</string>
+    <string name="three_game_btn">PuzzleGame</string>
 
     <string name="btn_first_day">btn first day</string>
     <string name="btn_second_day">btn second day</string>
@@ -26,5 +26,7 @@
     <string name="hard_level_btn">hard level btn</string>
     <string name="next_btn">next btn</string>
     <string name="restart_btn">restart btn</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

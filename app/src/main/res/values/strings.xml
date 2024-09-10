@@ -27,5 +27,8 @@
 
     <string name="next_btn">next btn</string>
     <string name="restart_btn">restart btn</string>
+    <string name="info_btn">info btn</string>
+    <string name="coin">coin image</string>
+    <string name="text_default_time">00:00</string>
 
 </resources>

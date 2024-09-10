@@ -8,4 +8,8 @@
     <dimen name="sp25">25sp</dimen>
     <dimen name="sp30">30sp</dimen>
     <dimen name="dp10">10dp</dimen>
+    <dimen name="dp100">100dp</dimen>
+    <dimen name="dp0">0dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp40">40dp</dimen>
 </resources>

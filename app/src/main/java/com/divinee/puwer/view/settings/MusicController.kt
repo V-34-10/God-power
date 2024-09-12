@@ -26,10 +26,10 @@ class MusicController(private val context: Context) {
 
 object MusicStart {
     fun musicStartMode(context: Context, sourceMusic: Int, managerMusic: MusicController) {
-        if (context.getSharedPreferences("MagicMexicanFirePref", AppCompatActivity.MODE_PRIVATE).getBoolean("musicStatus", false)) managerMusic.apply { playSound(sourceMusic, true) }
+        if (context.getSharedPreferences("PrefDivinePower", AppCompatActivity.MODE_PRIVATE).getBoolean("musicStatus", false)) managerMusic.apply { playSound(sourceMusic, true) }
     }
 
     fun soundStartMode(context: Context, sourceMusic: Int, managerMusic: MusicController) {
-        if (context.getSharedPreferences("MagicMexicanFirePref", AppCompatActivity.MODE_PRIVATE).getBoolean("soundStatus", false)) managerMusic.apply { playSound(sourceMusic, true) }
+        if (context.getSharedPreferences("PrefDivinePower", AppCompatActivity.MODE_PRIVATE).getBoolean("soundStatus", false)) managerMusic.apply { playSound(sourceMusic, true) }
     }
 }

@@ -49,7 +49,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
 
                 R.id.btn_switch_music -> {
-                    if (this.getSharedPreferences("MagicMexicanFirePref", MODE_PRIVATE)
+                    if (this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
                             .getBoolean("soundStatus", false)
                     ) {
                         musicVolume.setOnVolume()
@@ -66,7 +66,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
 
                 R.id.btn_switch_sound -> {
-                    if (this.getSharedPreferences("MagicMexicanFirePref", MODE_PRIVATE)
+                    if (this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
                             .getBoolean("soundStatus", false)
                     ) {
                         soundVolume.setOnVolume()

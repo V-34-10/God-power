@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:background="@drawable/switch_on_btn"
+                android:background="@drawable/switch_off_btn"
                 android:clickable="true"
                 android:contentDescription="@string/back_btn"
                 android:focusable="true"

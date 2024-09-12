@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityMainBinding
-import com.divinee.puwer.view.menu.MenuActivity
+import com.divinee.puwer.view.daily.DailyActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding.buttonStart.setOnClickListener {
             it.startAnimation(startAnimation(this))
-            startActivity(Intent(this@MainActivity, MenuActivity::class.java))
+            startActivity(Intent(this@MainActivity, DailyActivity::class.java))
         }
     }
 

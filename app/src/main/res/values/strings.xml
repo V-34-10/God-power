@@ -31,11 +31,12 @@
     <string name="coin">coin image</string>
     <string name="text_default_time">00:00</string>
 
-    <string name="text_default_balance">200</string>
+    <string name="text_default_balance">10000</string>
     <string name="title_try_luck">Try luck!</string>
     <string name="wheel_scene">wheel scene</string>
     <string name="arrow_wheel">arrow wheel</string>
     <string name="change_text"><u>change</u></string>
     <string name="preview_puzzle">preview puzzle</string>
+    <string name="reset_message">Reset balance score</string>
 
 </resources>

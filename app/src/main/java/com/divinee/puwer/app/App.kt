@@ -1,4 +1,4 @@
-package com.divinee.puwer
+package com.divinee.puwer.app
 
 import android.app.Application
 import com.appodeal.ads.Appodeal

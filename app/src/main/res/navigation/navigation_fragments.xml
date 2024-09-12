@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/memorize_game"
-        android:name="com.divinee.puwer.MemorizeGameFragment"
+        android:name="com.divinee.puwer.view.games.memorize.MemorizeGameFragment"
         android:label="@string/first_game_btn"
         tools:layout="@layout/fragment_memorize_game" />
 
     <fragment
         android:id="@+id/find_cards_game"
-        android:name="com.divinee.puwer.FindCardsGameFragment"
+        android:name="com.divinee.puwer.view.games.findcards.FindCardsGameFragment"
         android:label="@string/second_game_btn"
         tools:layout="@layout/fragment_find_cards_game" />
 
     <fragment
         android:id="@+id/puzzle_game"
-        android:name="com.divinee.puwer.PuzzleGameFragment"
+        android:name="com.divinee.puwer.view.games.puzzle.PuzzleGameFragment"
         android:label="@string/three_game_btn"
         tools:layout="@layout/fragment_puzzle_game" />
 

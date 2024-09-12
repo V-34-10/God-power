@@ -1,4 +1,4 @@
-package com.divinee.puwer
+package com.divinee.puwer.view.welcome
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityMainBinding
+import com.divinee.puwer.view.menu.MenuActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }

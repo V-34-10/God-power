@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_menu_activity"
-    tools:context=".MenuActivity">
+    tools:context=".view.menu.MenuActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/control_button"

@@ -27,31 +27,31 @@
         android:theme="@style/Theme.DivinePower"
         tools:targetApi="31">
         <activity
-            android:name=".SceneActivity"
+            android:name=".view.games.SceneActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LevelActivity"
+            android:name=".view.levels.LevelActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RulesActivity"
+            android:name=".view.rules.RulesActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DailyActivity"
+            android:name=".view.daily.DailyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".view.settings.SettingsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".view.menu.MenuActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.welcome.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

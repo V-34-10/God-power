@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_find_cards_game_fragment"
-    tools:context=".FindCardsGameFragment">
+    tools:context=".view.games.findcards.FindCardsGameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/control_status_bar"

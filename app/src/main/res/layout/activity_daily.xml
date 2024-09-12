@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_daily_activity"
-    tools:context=".DailyActivity">
+    tools:context=".view.daily.DailyActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/list_buttons_daily"

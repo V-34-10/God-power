@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_scene_activity"
-    tools:context=".LevelActivity">
+    tools:context=".view.levels.LevelActivity">
 
     <ImageView
         android:id="@+id/btn_home"

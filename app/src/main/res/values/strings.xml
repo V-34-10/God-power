@@ -38,5 +38,6 @@
     <string name="change_text"><u>change</u></string>
     <string name="preview_puzzle">preview puzzle</string>
     <string name="reset_message">Reset balance score</string>
+    <string name="find_pair_item">find Card item</string>
 
 </resources>

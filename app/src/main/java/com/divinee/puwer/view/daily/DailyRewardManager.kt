@@ -91,4 +91,17 @@ class DailyRewardManager(context: Context) {
         }
         return true
     }
+
+    fun shouldShowDailyActivity(context: Context): Boolean {
+        val prefs = context.getSharedPreferences("daily_activity_prefs", Context.MODE_PRIVATE)
+        val lastShowDate = prefs.getLong("last_show_date", 0)
+
+        val currentDate = Calendar.getInstance().timeInMillis
+        return (currentDate - lastShowDate) >= TimeUnit.DAYS.toMillis(1)
+    }
+
+    fun saveLastDailyActivityShowDate(context: Context) {
+        val prefs = context.getSharedPreferences("daily_activity_prefs", Context.MODE_PRIVATE)
+        prefs.edit().putLong("last_show_date", Calendar.getInstance().timeInMillis).apply()
+    }
 }

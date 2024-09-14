@@ -13,7 +13,6 @@ import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityMenuBinding
 import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.SettingsActivity
-import com.divinee.puwer.view.welcome.MainActivity
 
 class MenuActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
@@ -31,11 +30,6 @@ class MenuActivity : AppCompatActivity() {
 
     private fun menuClickButtons() {
         binding.apply {
-            templateClickButton(
-                btnHome,
-                MainActivity::class.java,
-                startAnimation(this@MenuActivity)
-            )
             templateClickButton(
                 btnSettings,
                 SettingsActivity::class.java,

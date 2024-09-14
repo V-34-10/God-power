@@ -8,11 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
-import com.divinee.puwer.databinding.ActivityRulesBinding
+import com.divinee.puwer.databinding.ActivityDailyBinding
 import com.divinee.puwer.view.menu.MenuActivity
 
 class DailyActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityRulesBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityDailyBinding.inflate(layoutInflater) }
     private lateinit var dailyRewardManager: DailyRewardManager
     private lateinit var btnFirstDay: ImageView
     private lateinit var btnSecondDay: ImageView

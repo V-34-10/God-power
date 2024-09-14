@@ -9,9 +9,11 @@ import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityMainBinding
+import com.divinee.puwer.network.NetworkChecker.checkEthernetStatus
 import com.divinee.puwer.view.daily.DailyActivity
 import com.divinee.puwer.view.daily.DailyRewardManager
 import com.divinee.puwer.view.menu.MenuActivity
+import com.divinee.puwer.view.welcome.AppodealSetup.initBanner
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -26,16 +28,32 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         dailyRewardManager = DailyRewardManager(this)
-        binding.buttonStart.setOnClickListener {
-            if (dailyRewardManager.shouldShowDailyActivity(this)) {
-                it.startAnimation(startAnimation(this))
-                startActivity(Intent(this@MainActivity, DailyActivity::class.java))
+        switchRunBannerOrMenu()
+    }
 
-                dailyRewardManager.saveLastDailyActivityShowDate(this)
-            } else {
-                startActivity(Intent(this@MainActivity, MenuActivity::class.java))
-            }
+    private fun switchRunBannerOrMenu() {
+        if (checkEthernetStatus(this)) {
+            initBanner(this)
+            binding.buttonStart.isEnabled = false
+        } else {
+            binding.buttonStart.isEnabled = true
+            navigateNotUseBanner()
         }
+    }
+
+    fun navigateNotUseBanner() {
+        binding.buttonStart.setOnClickListener {
+            it.startAnimation(startAnimation(this))
+            checkNavigateToDaily()
+        }
+    }
+
+    fun checkNavigateToDaily() {
+        if (dailyRewardManager.shouldShowDailyActivity(this)) {
+            dailyRewardManager.saveLastDailyActivityShowDate(this)
+            startActivity(Intent(this@MainActivity, DailyActivity::class.java))
+        } else startActivity(Intent(this@MainActivity, MenuActivity::class.java))
+        finish()
     }
 
     @Deprecated("Deprecated in Java")

@@ -13,9 +13,12 @@ import com.divinee.puwer.databinding.ActivityRulesBinding
 import com.divinee.puwer.view.games.SceneActivity
 import com.divinee.puwer.view.levels.LevelActivity
 import com.divinee.puwer.view.menu.MenuActivity
+import com.divinee.puwer.view.settings.MusicRunner
+import com.divinee.puwer.view.settings.MusicSetup
 
 class RulesActivity : AppCompatActivity() {
     private val binding by lazy { ActivityRulesBinding.inflate(layoutInflater) }
+    private lateinit var musicSet: MusicSetup
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,6 +28,8 @@ class RulesActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        musicSet = MusicSetup(this)
+        MusicRunner.soundStartMode(this, R.raw.sound_menu, musicSet)
         viewPulesForGameName()
     }
 
@@ -65,4 +70,19 @@ class RulesActivity : AppCompatActivity() {
         ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
     )
     override fun onBackPressed() = super.onBackPressed()
+
+    override fun onResume() {
+        super.onResume()
+        musicSet.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        musicSet.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        musicSet.release()
+    }
 }

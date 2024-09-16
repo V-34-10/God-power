@@ -19,6 +19,7 @@ class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
     private lateinit var musicVolume: VolumeManager
     private lateinit var soundVolume: VolumeManager
+    private lateinit var musicSet: MusicSetup
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,8 @@ class SettingsActivity : AppCompatActivity() {
         }
         musicVolume = VolumeManager(this)
         soundVolume = VolumeManager(this)
+        musicSet = MusicSetup(this)
+        MusicRunner.soundStartMode(this, R.raw.sound_menu, musicSet)
         updateBackgroundSoundAndMusic()
         settingsClickButtons()
     }
@@ -114,4 +117,19 @@ class SettingsActivity : AppCompatActivity() {
         ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
     )
     override fun onBackPressed() = super.onBackPressed()
+
+    override fun onResume() {
+        super.onResume()
+        musicSet.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        musicSet.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        musicSet.release()
+    }
 }

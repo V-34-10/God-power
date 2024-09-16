@@ -12,10 +12,13 @@ import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityMenuBinding
 import com.divinee.puwer.view.rules.RulesActivity
+import com.divinee.puwer.view.settings.MusicRunner
+import com.divinee.puwer.view.settings.MusicSetup
 import com.divinee.puwer.view.settings.SettingsActivity
 
 class MenuActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
+    private lateinit var musicSet: MusicSetup
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,6 +28,8 @@ class MenuActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        musicSet = MusicSetup(this)
+        MusicRunner.soundStartMode(this, R.raw.sound_menu, musicSet)
         menuClickButtons()
     }
 
@@ -77,7 +82,20 @@ class MenuActivity : AppCompatActivity() {
         "Deprecated in Java",
         ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
     )
-    override fun onBackPressed() {
-        super.onBackPressed()
+    override fun onBackPressed() = super.onBackPressed()
+
+    override fun onResume() {
+        super.onResume()
+        musicSet.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        musicSet.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        musicSet.release()
     }
 }

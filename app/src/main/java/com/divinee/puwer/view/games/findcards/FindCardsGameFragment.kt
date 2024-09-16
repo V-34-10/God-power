@@ -5,18 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.fragment.app.Fragment
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.FragmentFindCardsGameBinding
 import com.divinee.puwer.view.menu.MenuActivity
 import com.divinee.puwer.view.rules.RulesActivity
-import com.divinee.puwer.view.settings.MusicController
-import com.divinee.puwer.view.settings.MusicStart
+import com.divinee.puwer.view.settings.MusicRunner
+import com.divinee.puwer.view.settings.MusicSetup
 
 class FindCardsGameFragment : Fragment() {
     private lateinit var binding: FragmentFindCardsGameBinding
-    private lateinit var controllerMusic: MusicController
+    private lateinit var musicSet: MusicSetup
+    private lateinit var gameManager: FindPairGameManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,9 +29,15 @@ class FindCardsGameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        controllerMusic = MusicController(requireContext())
-        MusicStart.musicStartMode(requireContext(), R.raw.music_find_cards, controllerMusic)
-
+        musicSet = MusicSetup(requireContext())
+        MusicRunner.musicStartMode(requireContext(), R.raw.music_find_cards, musicSet)
+        context?.let { gameManager = FindPairGameManager(it, binding) }
+        binding.textBalance.text =
+            context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(
+                "balanceScore",
+                context?.getString(R.string.text_default_balance)
+            )
+        gameManager.initGame()
         observeControlBarGame()
     }
 
@@ -52,22 +60,22 @@ class FindCardsGameFragment : Fragment() {
 
         btnNext.setOnClickListener {
             it.startAnimation(startAnimation(requireContext()))
-
+            gameManager.resetGame()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        controllerMusic.resume()
+        musicSet.resume()
     }
 
     override fun onPause() {
         super.onPause()
-        controllerMusic.pause()
+        musicSet.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        controllerMusic.release()
+        musicSet.release()
     }
 }

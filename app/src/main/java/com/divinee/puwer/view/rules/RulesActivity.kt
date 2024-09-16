@@ -58,7 +58,10 @@ class RulesActivity : AppCompatActivity() {
                     }
                 }
 
-                R.id.btn_home -> startActivity(Intent(this@RulesActivity, MenuActivity::class.java))
+                R.id.btn_home -> {
+                    startActivity(Intent(this@RulesActivity, MenuActivity::class.java))
+                    finish()
+                }
             }
         }
         binding.btnPlayRules.setOnClickListener(onClickListener)

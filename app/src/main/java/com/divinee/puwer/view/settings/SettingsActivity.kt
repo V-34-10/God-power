@@ -71,6 +71,7 @@ class SettingsActivity : AppCompatActivity() {
 
                 R.id.btn_home, R.id.btn_play_settings -> {
                     startActivity(Intent(this@SettingsActivity, MenuActivity::class.java))
+                    finish()
                 }
             }
         }

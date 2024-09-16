@@ -64,6 +64,7 @@ class MenuActivity : AppCompatActivity() {
             this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                 .putString("nameGame", this.getString(gameName)).apply()
             startActivity(Intent(this@MenuActivity, RulesActivity::class.java))
+            finish()
         }
     }
 
@@ -75,6 +76,7 @@ class MenuActivity : AppCompatActivity() {
         button.setOnClickListener {
             it.startAnimation(animation)
             startActivity(Intent(this@MenuActivity, activityClass))
+            finish()
         }
     }
 

@@ -54,12 +54,15 @@ class LevelActivity : AppCompatActivity() {
                     startActivity(Intent(this@LevelActivity, SceneActivity::class.java))
                 }
 
-                R.id.btn_home -> startActivity(
-                    Intent(
-                        this@LevelActivity,
-                        RulesActivity::class.java
+                R.id.btn_home -> {
+                    startActivity(
+                        Intent(
+                            this@LevelActivity,
+                            RulesActivity::class.java
+                        )
                     )
-                )
+                    finish()
+                }
             }
         }
         binding.buttonLevelEasy.setOnClickListener(onClickListener)

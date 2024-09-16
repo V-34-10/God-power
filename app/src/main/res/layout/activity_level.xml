@@ -32,8 +32,8 @@
 
         <ImageView
             android:id="@+id/button_level_easy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="@dimen/dp100"
             android:background="@drawable/easy_level_btn"
             android:clickable="true"
             android:contentDescription="@string/easy_level_btn"
@@ -44,8 +44,8 @@
 
         <ImageView
             android:id="@+id/button_level_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="@dimen/dp100"
             android:layout_marginTop="30dp"
             android:background="@drawable/medium_level_btn"
             android:clickable="true"
@@ -57,8 +57,8 @@
 
         <ImageView
             android:id="@+id/button_level_hard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="@dimen/dp100"
             android:layout_marginTop="30dp"
             android:background="@drawable/hard_level_btn"
             android:clickable="true"

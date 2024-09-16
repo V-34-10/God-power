@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/find_card_item"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/find_pair_item"
         android:padding="5dp"
         android:src="@drawable/find_0"

@@ -28,4 +28,9 @@ class FindPairGameManager(
         timerAnimation.stopTimer(binding)
         clickHandler.isGameStarted = false
     }
+
+    fun destroyGame() {
+        clickHandler.stepSearchPair = 0
+        timerAnimation.stopTimer(binding)
+    }
 }

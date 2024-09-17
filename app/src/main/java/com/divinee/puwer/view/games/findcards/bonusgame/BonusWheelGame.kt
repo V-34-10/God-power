@@ -106,7 +106,7 @@ object BonusWheelGame {
         context.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit().putString(
             "balanceScore",
             balance.toString()
-        )
+        ).apply()
     }
 
     private fun stringToNumber(text: String): Int =

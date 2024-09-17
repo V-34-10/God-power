@@ -75,4 +75,12 @@ object DialogBaseGame {
             restartGame(timerAnimation, binding, selectLevel, context)
         }
     }
+
+    fun runDialogLoseGameMemorize(context: Context) {
+        showDialog(context, R.layout.dialog_game_lose, R.id.btn_restart_dialog) {}
+    }
+
+    fun runDialogVictoryGameMemorize(context: Context) {
+        showDialog(context, R.layout.dialog_game_victory, R.id.btn_next_dialog) {}
+    }
 }

@@ -76,6 +76,7 @@ class FindCardsGameFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        gameManager.destroyGame()
         musicSet.release()
     }
 }

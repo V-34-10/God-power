@@ -41,6 +41,7 @@ class PuzzleGameFragment : Fragment(), MovePuzzleListener {
         super.onViewCreated(view, savedInstanceState)
         musicSet = MusicSetup(requireContext())
         MusicRunner.musicStartMode(requireContext(), R.raw.music_puzzle, musicSet)
+        updatePreviewImagePuzzleForLevel()
         binding.textBalance.text =
             context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(
                 "balanceScore",
@@ -49,6 +50,13 @@ class PuzzleGameFragment : Fragment(), MovePuzzleListener {
         timerAnimation = TimerAnimation()
         gameController.startGame(timerAnimation, binding, selectLevel, requireContext())
         observeControlBarGame()
+    }
+
+    private fun updatePreviewImagePuzzleForLevel() {
+        when (selectLevel) {
+            "Medium" -> binding.previewPuzzle.setBackgroundResource(R.drawable.preview_medium_puzzle)
+            "Hard" -> binding.previewPuzzle.setBackgroundResource(R.drawable.preview_hard_puzzle)
+        }
     }
 
     private fun observeControlBarGame() {

@@ -29,7 +29,8 @@ class PuzzleAdapter(
 ) : RecyclerView.Adapter<PuzzleAdapter.ViewHolder>() {
 
     private var emptyPosition: Int = cardList.size - 1
-    private val winListPuzzle: List<Int> = PuzzleImageSetup.getImages(selectedLevel)
+    private val levelConfig = PuzzleImageSetup.getLevelConfig(selectedLevel)
+    private val winListPuzzle: List<Int> = levelConfig.winListPuzzle
     private var timerStarted = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
@@ -48,7 +49,7 @@ class PuzzleAdapter(
                 if (PuzzleHelper.canMoveStepGame(
                         adapterPosition,
                         emptyPosition,
-                        PuzzleImageSetup.getSpanPuzzle(selectedLevel)
+                        levelConfig.spanPuzzle
                     )
                 ) {
                     swapPuzzles(adapterPosition, emptyPosition)
@@ -76,12 +77,12 @@ class PuzzleAdapter(
                 if (PuzzleHelper.canMoveStepGame(
                         viewHolder.adapterPosition,
                         emptyPosition,
-                        PuzzleImageSetup.getSpanPuzzle(selectedLevel)
+                        levelConfig.spanPuzzle
                     ) &&
                     PuzzleHelper.canMoveStepGame(
                         target.adapterPosition,
                         emptyPosition,
-                        PuzzleImageSetup.getSpanPuzzle(selectedLevel)
+                        levelConfig.spanPuzzle
                     )
                 ) {
                     swapPuzzles(viewHolder.adapterPosition, target.adapterPosition)

@@ -98,12 +98,12 @@ class SettingsActivity : AppCompatActivity() {
                 .getBoolean("soundStatus", false)
 
             if (soundStatus) {
-                soundVolume.setOnVolume()
+                soundVolume.setOffVolume()
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                     .putBoolean("soundStatus", false).apply()
                 binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_off_btn)
             } else {
-                soundVolume.setOffVolume()
+                soundVolume.setOnVolume()
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                     .putBoolean("soundStatus", true).apply()
                 binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_on_btn)

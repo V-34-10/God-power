@@ -31,6 +31,11 @@ class MemorizeGameFragment : Fragment() {
         R.drawable.memorize_2,
         R.drawable.memorize_3
     )
+    private var coinImagesSet = listOf(
+        R.drawable.memorize_1a,
+        R.drawable.memorize_2a,
+        R.drawable.memorize_3a
+    )
     private var selectedCoins = mutableListOf<Int>()
     private lateinit var correctCombination: List<Int>
     private val choiceCoins = mutableListOf<ImageView>()
@@ -87,8 +92,8 @@ class MemorizeGameFragment : Fragment() {
 
     private fun setCoinToPlaceholder(placeholderIndex: Int) {
         if (selectedChoiceCoinIndex == -1) return
-        val selectedCoinDrawable = choiceCoins[selectedChoiceCoinIndex].drawable
-        coinsSet[placeholderIndex].setImageDrawable(selectedCoinDrawable)
+        val selectedCoinDrawable = coinImagesSet[selectedChoiceCoinIndex]
+        coinsSet[placeholderIndex].setImageResource(selectedCoinDrawable)
         selectedCoins.add(selectedChoiceCoinIndex)
         choiceCoins[selectedChoiceCoinIndex].visibility = View.GONE
         selectedChoiceCoinIndex = -1

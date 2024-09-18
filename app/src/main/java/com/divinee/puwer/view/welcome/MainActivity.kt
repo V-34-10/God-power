@@ -40,9 +40,13 @@ class MainActivity : AppCompatActivity() {
     fun navigateNotUseBanner() {
         binding.buttonStart.setOnClickListener {
             it.startAnimation(startAnimation(this))
-            startActivity(Intent(this@MainActivity, DailyActivity::class.java))
-            finish()
+            checkNavigateToDaily()
         }
+    }
+
+    fun checkNavigateToDaily() {
+        startActivity(Intent(this@MainActivity, DailyActivity::class.java))
+        finish()
     }
 
     @Deprecated("Deprecated in Java")

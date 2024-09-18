@@ -15,7 +15,7 @@ import com.divinee.puwer.view.games.puzzle.GameController.restartGame
 object DialogBaseGame {
 
     private fun createDialog(context: Context, layoutResId: Int): Dialog {
-        val dialog = Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        val dialog = Dialog(context, R.style.CustomDialogTheme)
         dialog.setContentView(layoutResId)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.setCanceledOnTouchOutside(false)

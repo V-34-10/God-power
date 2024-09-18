@@ -54,8 +54,9 @@ class PuzzleGameFragment : Fragment(), MovePuzzleListener {
 
     private fun updatePreviewImagePuzzleForLevel() {
         when (selectLevel) {
-            "Medium" -> binding.previewPuzzle.setBackgroundResource(R.drawable.preview_medium_puzzle)
-            "Hard" -> binding.previewPuzzle.setBackgroundResource(R.drawable.preview_hard_puzzle)
+            this.getString(R.string.medium_level_btn) -> binding.previewPuzzle.setImageResource(R.drawable.preview_medium_puzzle)
+            this.getString(R.string.hard_level_btn) -> binding.previewPuzzle.setImageResource(R.drawable.preview_hard_puzzle)
+            else -> binding.previewPuzzle.setImageResource(R.drawable.preview_easy_puzzle)
         }
     }
 

@@ -55,23 +55,17 @@ class DailyRewardManager(context: Context) {
             return 1
         }
 
-        val diffInMillis = currentDate - lastLaunchDate
-        val diffInDays = TimeUnit.MILLISECONDS.toDays(diffInMillis)
+        val diffInDays = TimeUnit.MILLISECONDS.toDays(currentDate - lastLaunchDate)
 
-        var currentDay = (getLastRewardDay() + diffInDays + 1).toInt()
-        currentDay %= 3
-        if (currentDay == 0) {
-            currentDay = 3
-        }
-        return currentDay
+        val currentDay = getLastRewardDay() + diffInDays.toInt()
+        return if (currentDay % 3 == 0) 3 else currentDay % 3
     }
 
     fun checkAndResetProgress() {
         val lastRewardDate = getLastRewardDate()
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = lastRewardDate
+        val currentDate = System.currentTimeMillis()
 
-        if (TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - lastRewardDate) > 1 || allRewardsClaimed()) {
+        if (TimeUnit.MILLISECONDS.toDays(currentDate - lastRewardDate) > 1 && !allRewardsClaimed()) {
             resetRewardProgress()
         }
     }
@@ -95,9 +89,12 @@ class DailyRewardManager(context: Context) {
     fun shouldShowDailyActivity(context: Context): Boolean {
         val prefs = context.getSharedPreferences("daily_activity_prefs", Context.MODE_PRIVATE)
         val lastShowDate = prefs.getLong("last_show_date", 0)
+        val lastRewardDate = getLastRewardDate()
 
         val currentDate = Calendar.getInstance().timeInMillis
+
         return (currentDate - lastShowDate) >= TimeUnit.DAYS.toMillis(1)
+                || (currentDate - lastRewardDate) >= TimeUnit.DAYS.toMillis(1)
     }
 
     fun saveLastDailyActivityShowDate(context: Context) {

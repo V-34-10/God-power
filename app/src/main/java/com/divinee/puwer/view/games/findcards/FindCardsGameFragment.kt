@@ -34,7 +34,7 @@ class FindCardsGameFragment : Fragment() {
         context?.let { gameManager = FindPairGameManager(it, binding) }
         binding.textBalance.text =
             context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(
-                "balanceScore",
+                "balanceScores",
                 context?.getString(R.string.text_default_balance)
             )
         gameManager.initGame()

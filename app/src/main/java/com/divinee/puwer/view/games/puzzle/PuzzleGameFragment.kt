@@ -44,7 +44,7 @@ class PuzzleGameFragment : Fragment(), MovePuzzleListener {
         updatePreviewImagePuzzleForLevel()
         binding.textBalance.text =
             context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(
-                "balanceScore",
+                "balanceScores",
                 context?.getString(R.string.text_default_balance)
             )
         timerAnimation = TimerAnimation()

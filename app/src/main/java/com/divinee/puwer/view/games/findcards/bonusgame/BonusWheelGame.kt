@@ -104,11 +104,11 @@ object BonusWheelGame {
             binding.textBalance.text = "$balance"
         }
         context.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit().putString(
-            "balanceScore",
+            "balanceScores",
             balance.toString()
         ).apply()
     }
 
-    private fun stringToNumber(text: String): Int =
+    fun stringToNumber(text: String): Int =
         text.replace(Regex("\\D"), "").toIntOrNull() ?: 0
 }

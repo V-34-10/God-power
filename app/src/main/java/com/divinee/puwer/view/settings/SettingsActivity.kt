@@ -65,7 +65,7 @@ class SettingsActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, R.string.reset_message, Toast.LENGTH_SHORT)
                         .show()
                     this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
-                        .putString("balanceScore", this.getString(R.string.text_default_balance))
+                        .putString("balanceScores", this.getString(R.string.text_default_balance))
                         .apply()
                 }
 

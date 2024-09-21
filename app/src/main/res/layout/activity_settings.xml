@@ -135,7 +135,7 @@
             android:clickable="true"
             android:focusable="true"
             android:fontFamily="@font/im_fell_double_pica"
-            android:text="@string/read_privacy_text"
+            android:text="@string/reset_settings_text"
             android:textColor="@color/white"
             android:textSize="@dimen/sp45"
             android:textStyle="bold"

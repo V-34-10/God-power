@@ -12,7 +12,8 @@
     <string name="three_day_btn">three day btn</string>
 
     <string name="title_settings">Settings</string>
-    <string name="read_privacy_text"><u>reset score</u></string>
+    <string name="reset_settings_text"><u>reset score</u></string>
+    <string name="read_privacy"><u>read</u></string>
     <string name="text_title_music">MUSIC</string>
     <string name="text_title_sound">SOUND</string>
 
@@ -39,5 +40,6 @@
     <string name="preview_puzzle">preview puzzle</string>
     <string name="reset_message">Reset balance score</string>
     <string name="find_pair_item">find Card item</string>
+    <string name="accept_privacy">accept privacy</string>
 
 </resources>

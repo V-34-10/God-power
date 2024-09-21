@@ -40,7 +40,7 @@ class PuzzleGameFragment : Fragment(), MovePuzzleListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         musicSet = MusicSetup(requireContext())
-        MusicRunner.musicStartMode(requireContext(), R.raw.music_puzzle, musicSet)
+        MusicRunner.musicStartMode(requireContext(), R.raw.music__puzzle, musicSet)
         updatePreviewImagePuzzleForLevel()
         binding.textBalance.text =
             context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(

@@ -30,7 +30,7 @@ class FindCardsGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         musicSet = MusicSetup(requireContext())
-        MusicRunner.musicStartMode(requireContext(), R.raw.music_find_cards, musicSet)
+        MusicRunner.musicStartMode(requireContext(), R.raw.music__find_cards, musicSet)
         context?.let { gameManager = FindPairGameManager(it, binding) }
         binding.textBalance.text =
             context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(

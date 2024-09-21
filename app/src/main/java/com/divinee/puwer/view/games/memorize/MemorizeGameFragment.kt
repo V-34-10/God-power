@@ -56,7 +56,7 @@ class MemorizeGameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         musicSet = MusicSetup(requireContext())
-        MusicRunner.musicStartMode(requireContext(), R.raw.music_memorize, musicSet)
+        MusicRunner.musicStartMode(requireContext(), R.raw.music__memorize, musicSet)
 
         coinPlaceholders = listOf(
             binding.coinPlaceholder1,

@@ -29,7 +29,7 @@ class RulesActivity : AppCompatActivity() {
             insets
         }
         musicSet = MusicSetup(this)
-        MusicRunner.soundStartMode(this, R.raw.sound_menu, musicSet)
+        MusicRunner.soundStartMode(this, R.raw.sound__menu, musicSet)
         viewPulesForGameName()
     }
 

@@ -22,7 +22,10 @@ object AppodealSetup {
             override fun onInterstitialShowFailed() =
                 (activity as MainActivity).navigateNotUseBanner()
 
-            override fun onInterstitialClosed() = (activity as MainActivity).checkNavigateToDaily()
+            override fun onInterstitialClosed() {
+                statusBannerShow = false
+                Appodeal.cache(activity, Appodeal.INTERSTITIAL)
+            }
 
             override fun onInterstitialClicked() {}
 

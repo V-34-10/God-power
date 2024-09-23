@@ -5,7 +5,7 @@ import com.appodeal.ads.Appodeal
 import com.appodeal.ads.InterstitialCallbacks
 
 object AppodealSetup {
-    private var statusBannerShow = false
+    var statusBannerShow = false
     fun initBanner(activity: AppCompatActivity) =
         Appodeal.setInterstitialCallbacks(createInterstitialCallbacks(activity))
 

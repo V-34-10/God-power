@@ -2,27 +2,23 @@ package com.divinee.puwer.view.privacy
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityPrivacyBinding
+import com.divinee.puwer.decoration.Edge
 import com.divinee.puwer.view.daily.DailyActivity
 
 class PrivacyActivity : AppCompatActivity() {
     private val binding by lazy { ActivityPrivacyBinding.inflate(layoutInflater) }
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        Edge.enableEdgeToEdge(this)
         setAgreePrivacy()
         runIntentPrivacy()
     }

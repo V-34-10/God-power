@@ -2,13 +2,13 @@ package com.divinee.puwer.view.games
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
 import com.divinee.puwer.databinding.ActivitySceneBinding
+import com.divinee.puwer.decoration.Edge
 import com.divinee.puwer.view.games.FragmentsManagerNavigation.backStack
 import com.divinee.puwer.view.games.FragmentsManagerNavigation.newFragment
 import com.divinee.puwer.view.games.FragmentsManagerNavigation.removeFragment
@@ -16,15 +16,11 @@ import com.divinee.puwer.view.menu.MenuActivity
 
 class SceneActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySceneBinding.inflate(layoutInflater) }
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainScene)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        Edge.enableEdgeToEdge(this)
         setFragmentGame()
     }
 

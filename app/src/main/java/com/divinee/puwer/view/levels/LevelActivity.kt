@@ -1,15 +1,15 @@
 package com.divinee.puwer.view.levels
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityLevelBinding
+import com.divinee.puwer.decoration.Edge
 import com.divinee.puwer.view.games.SceneActivity
 import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.MusicRunner
@@ -18,15 +18,11 @@ import com.divinee.puwer.view.settings.MusicSetup
 class LevelActivity : AppCompatActivity() {
     private val binding by lazy { ActivityLevelBinding.inflate(layoutInflater) }
     private lateinit var musicSet: MusicSetup
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        Edge.enableEdgeToEdge(this)
         musicSet = MusicSetup(this)
         MusicRunner.soundStartMode(this, R.raw.sound__menu, musicSet)
         saveLevelGamePuzzle()

@@ -3,15 +3,15 @@ package com.divinee.puwer.view.daily
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
 import com.divinee.puwer.databinding.ActivityDailyBinding
+import com.divinee.puwer.decoration.Edge
 import com.divinee.puwer.view.games.findcards.bonusgame.BonusWheelGame.stringToNumber
 import com.divinee.puwer.view.menu.MenuActivity
 import java.text.SimpleDateFormat
@@ -23,15 +23,11 @@ class DailyActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        Edge.enableEdgeToEdge(this)
 
         sharedPreferences = getSharedPreferences("PrefDivinePower", Context.MODE_PRIVATE)
         if (wasRewardShownToday()) {

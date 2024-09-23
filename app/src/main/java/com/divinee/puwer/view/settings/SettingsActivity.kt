@@ -5,14 +5,12 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivitySettingsBinding
+import com.divinee.puwer.decoration.Edge
 import com.divinee.puwer.view.menu.MenuActivity
 
 class SettingsActivity : AppCompatActivity() {
@@ -21,16 +19,11 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var soundVolume: VolumeManager
     private lateinit var musicSet: MusicSetup
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        Edge.enableEdgeToEdge(this)
         musicVolume = VolumeManager(this)
         soundVolume = VolumeManager(this)
         musicSet = MusicSetup(this)

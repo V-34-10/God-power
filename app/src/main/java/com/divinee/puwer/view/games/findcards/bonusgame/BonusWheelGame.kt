@@ -7,12 +7,12 @@ import android.view.animation.RotateAnimation
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.divinee.puwer.databinding.FragmentFindCardsGameBinding
 import com.divinee.puwer.models.SectorWheel
-import java.util.Random
 import kotlin.math.roundToInt
 
 object BonusWheelGame {
-
     private var startAngleRotateWheel = 0f
+    private const val DURATION = 2000L
+    private const val BET = 200
 
     fun animatedRotateWheel(
         binding: FragmentFindCardsGameBinding,
@@ -26,7 +26,7 @@ object BonusWheelGame {
             Animation.RELATIVE_TO_SELF, 0.5f,
             Animation.RELATIVE_TO_SELF, 0.5f
         ).apply {
-            duration = 2000
+            duration = DURATION
             fillAfter = true
             setAnimationListener(null)
         }
@@ -50,59 +50,37 @@ object BonusWheelGame {
         binding.wheel.startAnimation(rotationAnimation)
     }
 
-    private fun angleToDegree(angleRotate: Float): Float {
-        val degree = angleRotate % 360
-        return if (degree < 0) degree + 360 else degree
-    }
+    private fun angleToDegree(angle: Float): Float =
+        (angle % 360).let { if (it < 0) it + 360 else it }
 
-    private fun randomAngle(): Float {
-        return when (Random().nextInt(8)) {
-            0 -> 20f
-            1 -> 70f
-            2 -> 110f
-            3 -> 160f
-            4 -> 200f
-            5 -> 240f
-            6 -> 290f
-            7 -> 340f
-            else -> 0f
-        }
-    }
+    private fun randomAngle(): Float = listOf(20f, 70f, 110f, 160f, 200f, 240f, 290f, 340f).random()
 
-    private fun winCoeffSector(
-        angleRotate: Float
-    ): SectorWheel {
-        return when (angleToDegree(angleRotate)) {
-            in 0f..40f -> SectorWheel(2.0f, 20f) // 2x,
-            in 41f..89f -> SectorWheel(1.0f, 70f) // 1x
-            in 90f..134f -> SectorWheel(2.0f, 110f) // 2x
-            in 135f..180f -> SectorWheel(3.0f, 160f) // 3x
-            in 181f..220f -> SectorWheel(0.0f, 200f) // 0x
-            in 221f..269f -> SectorWheel(5.0f, 240f) // 5x
-            in 270f..314f -> SectorWheel(4.0f, 290f) // 4x
-            in 315f..360f -> SectorWheel(0.0f, 340f) // 3x
-            else -> {
-                SectorWheel(0.0f, 0f)
-            }
+    private fun winCoeffSector(angle: Float): SectorWheel {
+        return when (angleToDegree(angle)) {
+            in 0f..40f -> SectorWheel(2.0f, 20f)
+            in 41f..89f -> SectorWheel(1.0f, 70f)
+            in 90f..134f -> SectorWheel(2.0f, 110f)
+            in 135f..180f -> SectorWheel(3.0f, 160f)
+            in 181f..220f -> SectorWheel(0.0f, 200f)
+            in 221f..269f -> SectorWheel(5.0f, 240f)
+            in 270f..314f -> SectorWheel(4.0f, 290f)
+            in 315f..360f -> SectorWheel(0.0f, 340f)
+            else -> SectorWheel(0.0f, 0f)
         }
     }
 
     @SuppressLint("SetTextI18n", "CommitPrefEdits")
     private fun updateStatusBalance(
-        angle: Float,
+        coefficient: Float,
         binding: FragmentFindCardsGameBinding,
         context: Context
     ) {
         var balance = stringToNumber(binding.textBalance.text.toString())
-        val bet = 200
-        if (angle.toInt() == 0) {
-            balance -= 0
-            binding.textBalance.text = "$balance"
-        } else {
-            val scoreWin = (bet.toFloat() * angle).roundToInt()
+        if (coefficient != 0f) {
+            val scoreWin = (BET * coefficient).roundToInt()
             balance += scoreWin
-            binding.textBalance.text = "$balance"
         }
+        binding.textBalance.text = balance.toString()
         context.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit().putString(
             "balanceScores",
             balance.toString()
@@ -110,5 +88,5 @@ object BonusWheelGame {
     }
 
     fun stringToNumber(text: String): Int =
-        text.replace(Regex("\\D"), "").toIntOrNull() ?: 0
+        text.filter { it.isDigit() }.toIntOrNull() ?: 0
 }

@@ -38,10 +38,12 @@
         <activity
             android:name=".view.levels.LevelActivity"
             android:exported="false"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.rules.RulesActivity"
             android:exported="false"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.daily.DailyActivity"
@@ -50,10 +52,12 @@
         <activity
             android:name=".view.settings.SettingsActivity"
             android:exported="false"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.menu.MenuActivity"
             android:exported="false"
+            android:noHistory="true"
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.welcome.MainActivity"

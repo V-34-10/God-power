@@ -5,20 +5,16 @@ import androidx.annotation.RawRes
 
 class MusicSetup(private val context: Context) {
     private val soundPlayers = mutableMapOf<Int, SoundPlayer>()
-
     fun playSound(@RawRes soundResId: Int, loop: Boolean = false) {
-        val soundPlayer = soundPlayers.getOrPut(soundResId) {
+        soundPlayers.getOrPut(soundResId) {
             SoundPlayer(context)
-        }
-        soundPlayer.play(soundResId, loop)
+        }.play(soundResId, loop)
     }
 
-    fun pause() = soundPlayers.values.forEach { it.pause() }
-
-    fun resume() = soundPlayers.values.forEach { it.resume() }
-
+    fun pause() = soundPlayers.forEach { (_, player) -> player.pause() }
+    fun resume() = soundPlayers.forEach { (_, player) -> player.resume() }
     fun release() {
-        soundPlayers.values.forEach { it.release() }
+        soundPlayers.forEach { (_, player) -> player.release() }
         soundPlayers.clear()
     }
 }

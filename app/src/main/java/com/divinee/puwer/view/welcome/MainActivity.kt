@@ -2,16 +2,23 @@ package com.divinee.puwer.view.welcome
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
+import com.divinee.puwer.animation.SplashBarAnimation.loadingAnim
+import com.divinee.puwer.animation.SplashBarAnimation.returnProgressWidth
 import com.divinee.puwer.databinding.ActivityMainBinding
 import com.divinee.puwer.network.NetworkChecker.checkEthernetStatus
 import com.divinee.puwer.view.daily.DailyActivity
+import com.divinee.puwer.view.privacy.PrivacyActivity
 import com.divinee.puwer.view.welcome.AppodealSetup.initBanner
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -31,21 +38,39 @@ class MainActivity : AppCompatActivity() {
         if (checkEthernetStatus(this)) {
             initBanner(this)
             binding.buttonStart.isEnabled = false
+            binding.buttonStart.visibility = View.GONE
+            setAnimationBarForBanner()
         } else {
-            binding.buttonStart.isEnabled = true
             navigateNotUseBanner()
         }
     }
 
+    private fun setAnimationBarForBanner() {
+        binding.animationBarLoad.lineSplash.loadingAnim(maxWidth = this.returnProgressWidth())
+        lifecycleScope.launch {
+            delay(20000L)
+        }
+    }
+
     fun navigateNotUseBanner() {
+        binding.buttonStart.isEnabled = true
+        binding.buttonStart.visibility = View.VISIBLE
+        findViewById<View>(R.id.animationBarLoad).visibility = View.GONE
         binding.buttonStart.setOnClickListener {
             it.startAnimation(startAnimation(this))
             checkNavigateToDaily()
         }
     }
 
-    fun checkNavigateToDaily() {
-        startActivity(Intent(this@MainActivity, DailyActivity::class.java))
+    private fun checkNavigateToDaily() {
+        val navigateActivity = if (this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
+                .getBoolean("PrivacyActivity", false)
+        ) {
+            DailyActivity::class.java
+        } else {
+            PrivacyActivity::class.java
+        }
+        startActivity(Intent(this@MainActivity, navigateActivity))
         finish()
     }
 

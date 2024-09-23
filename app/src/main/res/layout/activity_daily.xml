@@ -50,7 +50,7 @@
             android:id="@+id/btn_three_day"
             android:layout_width="180dp"
             android:layout_height="150dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="50dp"
             android:alpha="0.5"
             android:background="@drawable/three_day_btn"
             android:clickable="true"

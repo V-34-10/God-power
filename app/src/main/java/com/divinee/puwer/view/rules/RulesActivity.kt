@@ -58,21 +58,26 @@ class RulesActivity : AppCompatActivity() {
                     }
                 }
 
-                R.id.btn_home -> {
-                    startActivity(Intent(this@RulesActivity, MenuActivity::class.java))
-                    finish()
-                }
+                R.id.btn_home -> goToMenu()
             }
         }
         binding.btnPlayRules.setOnClickListener(onClickListener)
         binding.btnHome.setOnClickListener(onClickListener)
     }
 
+    private fun goToMenu() {
+        startActivity(Intent(this, MenuActivity::class.java))
+        finish()
+    }
+
     @Deprecated(
         "Deprecated in Java",
         ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
     )
-    override fun onBackPressed() = super.onBackPressed()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goToMenu()
+    }
 
     override fun onResume() {
         super.onResume()

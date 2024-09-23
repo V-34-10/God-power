@@ -54,15 +54,7 @@ class LevelActivity : AppCompatActivity() {
                     startActivity(Intent(this@LevelActivity, SceneActivity::class.java))
                 }
 
-                R.id.btn_home -> {
-                    startActivity(
-                        Intent(
-                            this@LevelActivity,
-                            RulesActivity::class.java
-                        )
-                    )
-                    finish()
-                }
+                R.id.btn_home -> goToRules()
             }
         }
         binding.buttonLevelEasy.setOnClickListener(onClickListener)
@@ -71,11 +63,19 @@ class LevelActivity : AppCompatActivity() {
         binding.btnHome.setOnClickListener(onClickListener)
     }
 
+    private fun goToRules() {
+        startActivity(Intent(this, RulesActivity::class.java))
+        finish()
+    }
+
     @Deprecated(
         "Deprecated in Java",
         ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
     )
-    override fun onBackPressed() = super.onBackPressed()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goToRules()
+    }
 
     override fun onResume() {
         super.onResume()

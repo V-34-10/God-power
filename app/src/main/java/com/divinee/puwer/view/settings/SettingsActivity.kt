@@ -69,10 +69,7 @@ class SettingsActivity : AppCompatActivity() {
                         .apply()
                 }
 
-                R.id.btn_home, R.id.btn_play_settings -> {
-                    startActivity(Intent(this@SettingsActivity, MenuActivity::class.java))
-                    finish()
-                }
+                R.id.btn_home, R.id.btn_play_settings -> goToMenu()
             }
         }
 
@@ -113,11 +110,19 @@ class SettingsActivity : AppCompatActivity() {
         binding.btnPlaySettings.setOnClickListener(onClickListener)
     }
 
+    private fun goToMenu() {
+        startActivity(Intent(this, MenuActivity::class.java))
+        finish()
+    }
+
     @Deprecated(
         "Deprecated in Java",
         ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
     )
-    override fun onBackPressed() = super.onBackPressed()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goToMenu()
+    }
 
     override fun onResume() {
         super.onResume()

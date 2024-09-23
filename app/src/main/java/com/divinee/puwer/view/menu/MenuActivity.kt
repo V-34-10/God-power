@@ -84,7 +84,10 @@ class MenuActivity : AppCompatActivity() {
         "Deprecated in Java",
         ReplaceWith("super.onBackPressed()", "androidx.appcompat.app.AppCompatActivity")
     )
-    override fun onBackPressed() = super.onBackPressed()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 
     override fun onResume() {
         super.onResume()

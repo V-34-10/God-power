@@ -7,7 +7,7 @@ import android.view.animation.LinearInterpolator
 
 object SplashBarAnimation {
 
-    fun View.loadingAnim(duration: Long = 20000L, maxWidth: Int) {
+    fun View.loadingAnim(duration: Long = 15000L, maxWidth: Int) {
         layoutParams.width = 1
         ValueAnimator.ofInt(1, maxWidth).apply {
             this.duration = duration

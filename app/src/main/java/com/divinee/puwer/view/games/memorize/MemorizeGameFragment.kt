@@ -100,6 +100,13 @@ class MemorizeGameFragment : Fragment() {
         for (i in 0..2) {
             choiceCoins[i].alpha = 1.0f
         }
+
+        when (selectedCoins.size) {
+            1 -> binding.statusGame.setImageResource(R.drawable.status_win_one_items_memorize_game)
+            2 -> binding.statusGame.setImageResource(R.drawable.status_win_two_items_memorize_game)
+            3 -> binding.statusGame.setImageResource(R.drawable.status_win_memorize_game)
+        }
+
         if (selectedCoins.size == 3) {
             checkAnswer()
         }
@@ -191,6 +198,8 @@ class MemorizeGameFragment : Fragment() {
         updateTimerTextView()
 
         selectedCoins.clear()
+        binding.statusGame.setImageResource(R.drawable.status_default_win_memorize_game)
+        binding.btnNext.visibility = View.GONE
 
         for (i in 0..2) {
             choiceCoins[i].visibility = View.VISIBLE

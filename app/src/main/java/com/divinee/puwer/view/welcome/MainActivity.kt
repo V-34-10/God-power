@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkNavigateToDaily() {
+    fun checkNavigateToDaily() {
         val navigateActivity = if (this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
                 .getBoolean("PrivacyActivity", false)
         ) {

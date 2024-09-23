@@ -238,6 +238,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/next_btn"
+        android:visibility="gone"
         android:clickable="true"
         android:contentDescription="@string/next_btn"
         android:focusable="true"

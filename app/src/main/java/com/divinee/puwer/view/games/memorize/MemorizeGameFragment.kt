@@ -132,6 +132,7 @@ class MemorizeGameFragment : Fragment() {
         binding.statusTime.visibility = View.VISIBLE
         binding.blockSetCoins.visibility = View.VISIBLE
         binding.blockVariantsCoinsForChoice.visibility = View.VISIBLE
+        binding.btnNext.visibility = View.VISIBLE
 
         for (i in 0..2) {
             choiceCoins[i].visibility = View.VISIBLE

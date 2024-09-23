@@ -63,17 +63,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun checkNavigateToDaily() {
-        val navigateActivity = if (this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
-                .getBoolean("PrivacyActivity", false)
-        ) {
-            DailyActivity::class.java
-        } else {
-            PrivacyActivity::class.java
+        val navigateActivity = when {
+            isPrivacyAccepted() -> DailyActivity::class.java
+            else -> PrivacyActivity::class.java
         }
-        startActivity(Intent(this@MainActivity, navigateActivity))
+        navigateToActivity(navigateActivity)
+    }
+
+    private fun navigateToActivity(activityClass: Class<out AppCompatActivity>) {
+        startActivity(Intent(this, activityClass))
         finish()
     }
 
+    private fun isPrivacyAccepted(): Boolean =
+        getSharedPreferences("PrefDivinePower", MODE_PRIVATE).getBoolean("PrivacyActivity", false)
+
     @Deprecated("Deprecated in Java")
-    override fun onBackPressed() = super.onBackPressed()
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
 }

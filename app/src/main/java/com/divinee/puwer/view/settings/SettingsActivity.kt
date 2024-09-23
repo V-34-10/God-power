@@ -37,6 +37,7 @@ class SettingsActivity : AppCompatActivity() {
         MusicRunner.soundStartMode(this, R.raw.sound__menu, musicSet)
         updateBackgroundSoundAndMusic()
         settingsClickButtons()
+        observeSwitchMusicButtons()
     }
 
     private fun updateBackgroundSoundAndMusic() {
@@ -72,12 +73,17 @@ class SettingsActivity : AppCompatActivity() {
                 R.id.btn_home, R.id.btn_play_settings -> goToMenu()
             }
         }
-
         binding.textResetScore.setOnClickListener(onClickListener)
-        binding.btnSwitchMusic.setOnClickListener {
-            val musicStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
-                .getBoolean("musicStatus", false)
+        binding.btnHome.setOnClickListener(onClickListener)
+        binding.btnPlaySettings.setOnClickListener(onClickListener)
+    }
 
+    private fun observeSwitchMusicButtons() {
+        val musicStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
+            .getBoolean("musicStatus", false)
+        val soundStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
+            .getBoolean("soundStatus", false)
+        binding.btnSwitchMusic.setOnClickListener {
             if (musicStatus) {
                 musicVolume.setOffVolume()
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
@@ -91,9 +97,6 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
         binding.btnSwitchSound.setOnClickListener {
-            val soundStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
-                .getBoolean("soundStatus", false)
-
             if (soundStatus) {
                 soundVolume.setOffVolume()
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
@@ -106,8 +109,6 @@ class SettingsActivity : AppCompatActivity() {
                 binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_on_btn)
             }
         }
-        binding.btnHome.setOnClickListener(onClickListener)
-        binding.btnPlaySettings.setOnClickListener(onClickListener)
     }
 
     private fun goToMenu() {

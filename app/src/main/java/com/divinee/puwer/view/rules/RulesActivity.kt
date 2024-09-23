@@ -31,6 +31,7 @@ class RulesActivity : AppCompatActivity() {
         musicSet = MusicSetup(this)
         MusicRunner.soundStartMode(this, R.raw.sound__menu, musicSet)
         viewPulesForGameName()
+        observeButtonRules()
     }
 
     private fun viewPulesForGameName() {
@@ -40,7 +41,9 @@ class RulesActivity : AppCompatActivity() {
             getString(R.string.second_game_btn) -> binding.textRules.setText(R.string.text_rules_second_game)
             getString(R.string.three_game_btn) -> binding.textRules.setText(R.string.text_rules_three_game)
         }
+    }
 
+    private fun observeButtonRules() {
         val onClickListener = View.OnClickListener { view ->
             view.startAnimation(startAnimation(this@RulesActivity))
             when (view.id) {

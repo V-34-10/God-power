@@ -15,10 +15,12 @@ import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.MusicRunner
 import com.divinee.puwer.view.settings.MusicSetup
 import com.divinee.puwer.view.settings.SettingsActivity
+import kotlin.system.exitProcess
 
 class MenuActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
     private lateinit var musicSet: MusicSetup
+
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +84,11 @@ class MenuActivity : AppCompatActivity() {
     )
     override fun onBackPressed() {
         super.onBackPressed()
-        finish()
+        allFinish()
+    }
+
+    private fun allFinish() {
+        exitProcess(0)
     }
 
     override fun onResume() {

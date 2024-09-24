@@ -36,8 +36,9 @@ object GameController {
     }
 
     @SuppressLint("DiscouragedApi")
-    private fun getShuffledPuzzles(selectLevel: String): MutableList<Puzzle> {
-        val levelConfig = PuzzleImageSetup.getLevelConfig(selectLevel)
+    private fun getShuffledPuzzles(selectLevel: String, context: Context): MutableList<Puzzle> {
+        val puzzleImageSetup = PuzzleImageSetup(context)
+        val levelConfig = puzzleImageSetup.getLevelConfig(selectLevel)
         val resourcesPuzzles = levelConfig.winListPuzzle.dropLast(1)
         val sectorPuzzle =
             resourcesPuzzles.mapIndexed { index, resourceId -> Puzzle(resourceId, index) }
@@ -59,10 +60,11 @@ object GameController {
         context: Context,
         timerAnimation: TimerAnimation
     ) {
-        val levelConfig = PuzzleImageSetup.getLevelConfig(selectLevel)
+        val puzzleImageSetup = PuzzleImageSetup(context)
+        val levelConfig = puzzleImageSetup.getLevelConfig(selectLevel)
         puzzleAdapter = PuzzleAdapter(
             binding.sceneCard,
-            getShuffledPuzzles(selectLevel),
+            getShuffledPuzzles(selectLevel, context),
             selectLevel,
             context,
             timerAnimation,

@@ -29,7 +29,8 @@ class PuzzleAdapter(
 ) : RecyclerView.Adapter<PuzzleAdapter.ViewHolder>() {
 
     private var emptyPosition: Int = cardList.size - 1
-    private val levelConfig = PuzzleImageSetup.getLevelConfig(selectedLevel)
+    private val puzzleImageSetup = PuzzleImageSetup(context)
+    private val levelConfig = puzzleImageSetup.getLevelConfig(selectedLevel)
     private val winListPuzzle: List<Int> = levelConfig.winListPuzzle
     private var timerStarted = false
 

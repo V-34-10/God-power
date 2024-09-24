@@ -78,12 +78,12 @@ class SettingsActivity : AppCompatActivity() {
             .getBoolean("soundStatus", false)
         binding.btnSwitchMusic.setOnClickListener {
             if (musicStatus) {
-                musicVolume.setOffVolume()
+                musicVolume.setVolume(false)
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                     .putBoolean("musicStatus", false).apply()
                 binding.btnSwitchMusic.setBackgroundResource(R.drawable.switch_off_btn)
             } else {
-                musicVolume.setOnVolume()
+                musicVolume.setVolume(true)
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                     .putBoolean("musicStatus", true).apply()
                 binding.btnSwitchMusic.setBackgroundResource(R.drawable.switch_on_btn)
@@ -91,12 +91,12 @@ class SettingsActivity : AppCompatActivity() {
         }
         binding.btnSwitchSound.setOnClickListener {
             if (soundStatus) {
-                soundVolume.setOffVolume()
+                soundVolume.setVolume(false)
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                     .putBoolean("soundStatus", false).apply()
                 binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_off_btn)
             } else {
-                soundVolume.setOnVolume()
+                soundVolume.setVolume(true)
                 this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                     .putBoolean("soundStatus", true).apply()
                 binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_on_btn)

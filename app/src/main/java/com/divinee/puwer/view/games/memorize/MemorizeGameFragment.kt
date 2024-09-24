@@ -1,7 +1,6 @@
 package com.divinee.puwer.view.games.memorize
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -10,20 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.divinee.puwer.R
-import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.FragmentMemorizeGameBinding
+import com.divinee.puwer.view.games.BaseFragment
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogLoseGameMemorize
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogVictoryGameMemorize
-import com.divinee.puwer.view.menu.MenuActivity
-import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.MusicRunner
 import com.divinee.puwer.view.settings.MusicSetup
 
-class MemorizeGameFragment : Fragment() {
-    private lateinit var binding: FragmentMemorizeGameBinding
-    private lateinit var musicSet: MusicSetup
+class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
     private lateinit var coinPlaceholders: List<ImageView>
     private lateinit var coinsSet: List<ImageView>
     private var coinImages = listOf(
@@ -212,19 +206,8 @@ class MemorizeGameFragment : Fragment() {
         startGame()
     }
 
-    private fun observeControlBarGame() {
-        val btnHome = requireView().findViewById<View>(R.id.btn_home)
-        val btnInfo = requireView().findViewById<View>(R.id.btn_info)
-        btnHome.setOnClickListener {
-            it.startAnimation(startAnimation(requireContext()))
-            startActivity(Intent(context, MenuActivity::class.java))
-            activity?.finish()
-        }
-        btnInfo.setOnClickListener {
-            it.startAnimation(startAnimation(requireContext()))
-            startActivity(Intent(context, RulesActivity::class.java))
-            activity?.finish()
-        }
+    override fun observeControlBarGame() {
+        super.observeControlBarGame()
         for (i in 0..2) {
             binding.blockSetCoins.getChildAt(i).setOnClickListener {
                 setCoinToPlaceholder(i)
@@ -232,19 +215,8 @@ class MemorizeGameFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        musicSet.resume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        musicSet.pause()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer.cancel()
-        musicSet.release()
     }
 }

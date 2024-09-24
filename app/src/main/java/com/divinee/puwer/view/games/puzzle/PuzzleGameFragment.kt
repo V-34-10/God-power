@@ -6,21 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
-import androidx.fragment.app.Fragment
 import com.divinee.puwer.R
 import com.divinee.puwer.adapters.MovePuzzleListener
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.animation.TimerAnimation
 import com.divinee.puwer.databinding.FragmentPuzzleGameBinding
+import com.divinee.puwer.view.games.BaseFragment
 import com.divinee.puwer.view.levels.LevelActivity
-import com.divinee.puwer.view.menu.MenuActivity
-import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.MusicRunner
 import com.divinee.puwer.view.settings.MusicSetup
 
-class PuzzleGameFragment : Fragment(), MovePuzzleListener {
-    private lateinit var binding: FragmentPuzzleGameBinding
-    private lateinit var musicSet: MusicSetup
+class PuzzleGameFragment : BaseFragment<FragmentPuzzleGameBinding>(), MovePuzzleListener {
     private lateinit var gameController: GameController
     private lateinit var selectLevel: String
     private lateinit var timerAnimation: TimerAnimation
@@ -60,20 +56,9 @@ class PuzzleGameFragment : Fragment(), MovePuzzleListener {
         }
     }
 
-    private fun observeControlBarGame() {
-        val btnHome = requireView().findViewById<View>(R.id.btn_home)
-        val btnInfo = requireView().findViewById<View>(R.id.btn_info)
+    override fun observeControlBarGame() {
+        super.observeControlBarGame()
         val btnChange = requireView().findViewById<View>(R.id.text_change)
-        btnHome.setOnClickListener {
-            it.startAnimation(startAnimation(requireContext()))
-            startActivity(Intent(context, MenuActivity::class.java))
-            activity?.finish()
-        }
-        btnInfo.setOnClickListener {
-            it.startAnimation(startAnimation(requireContext()))
-            startActivity(Intent(context, RulesActivity::class.java))
-            activity?.finish()
-        }
         btnChange.setOnClickListener {
             it.startAnimation(startAnimation(requireContext()))
             startActivity(Intent(context, LevelActivity::class.java))
@@ -81,20 +66,9 @@ class PuzzleGameFragment : Fragment(), MovePuzzleListener {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        musicSet.resume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        musicSet.pause()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         timerAnimation.stopTimer(binding)
-        musicSet.release()
     }
 
     override fun onMovePuzzle(move: Int) {

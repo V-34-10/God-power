@@ -17,18 +17,15 @@ class FindPairAdapterManager(
     }
 
     fun setupAdapter(cardList: List<FindCard>) {
-        adapter = FindCardAdapter(cardList)
-        recyclerView.adapter = adapter
+        adapter = FindCardAdapter(cardList).also {
+            recyclerView.adapter = it
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun resetAdapter() {
-        adapter.notifyDataSetChanged()
-    }
+    fun resetAdapter() = adapter.notifyDataSetChanged()
 
-    fun notifyItemChanged(position: Int) {
-        adapter.notifyItemChanged(position)
-    }
+    fun notifyItemChanged(position: Int) = adapter.notifyItemChanged(position)
 
     fun setOnItemClickListener(onClick: (FindCard, Int) -> Unit) {
         adapter.onFindCardClick = onClick

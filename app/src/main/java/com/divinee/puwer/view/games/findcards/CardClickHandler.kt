@@ -8,8 +8,8 @@ import com.divinee.puwer.databinding.FragmentFindCardsGameBinding
 import com.divinee.puwer.models.FindCard
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogVictoryGame
 
-class FindPairClickHandler(
-    private val adapterManager: FindPairAdapterManager,
+class CardClickHandler(
+    private val adapterManager: AdapterManager,
     private val pairItemManager: PairItemManager,
     private val timerAnimation: TimerAnimation,
     private val bindingSetup: BindingSetup
@@ -24,7 +24,7 @@ class FindPairClickHandler(
     fun setupClickListener(
         context: Context,
         binding: FragmentFindCardsGameBinding,
-        gameManager: FindPairGameManager
+        gameManager: CardGameManager
     ) {
         adapterManager.setOnItemClickListener { pairItem, position ->
             handleClickIfValid(pairItem, position, context, binding, gameManager)
@@ -36,7 +36,7 @@ class FindPairClickHandler(
         position: Int,
         context: Context,
         binding: FragmentFindCardsGameBinding,
-        gameManager: FindPairGameManager
+        gameManager: CardGameManager
     ) {
         if (!isValidClick(pairItem)) return
 
@@ -57,7 +57,7 @@ class FindPairClickHandler(
     private fun processCardSelection(
         pairItem: FindCard,
         context: Context,
-        gameManager: FindPairGameManager
+        gameManager: CardGameManager
     ) {
         if (firstPair == null) {
             firstPair = pairItem
@@ -68,13 +68,13 @@ class FindPairClickHandler(
         }
     }
 
-    private fun delayCheckForMatch(context: Context, gameManager: FindPairGameManager) {
+    private fun delayCheckForMatch(context: Context, gameManager: CardGameManager) {
         Handler(Looper.getMainLooper()).postDelayed({
             checkMatchAndProceed(context, gameManager)
         }, delayHandler)
     }
 
-    private fun checkMatchAndProceed(context: Context, gameManager: FindPairGameManager) {
+    private fun checkMatchAndProceed(context: Context, gameManager: CardGameManager) {
         if (areCardsMatched()) {
             markPairsAsMatched()
         } else {
@@ -94,13 +94,13 @@ class FindPairClickHandler(
     private fun startGame(
         binding: FragmentFindCardsGameBinding,
         context: Context,
-        gameManager: FindPairGameManager
+        gameManager: CardGameManager
     ) {
         timerAnimation.startTimer(binding, context, gameManager)
         isGameStarted = true
     }
 
-    private fun updateGameState(context: Context, gameManager: FindPairGameManager) {
+    private fun updateGameState(context: Context, gameManager: CardGameManager) {
         incrementStepCounter()
         refreshDisplayedCards()
         resetSelection()

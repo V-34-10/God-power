@@ -11,7 +11,7 @@ import com.divinee.puwer.databinding.FragmentFindCardsGameBinding
 import com.divinee.puwer.databinding.FragmentPuzzleGameBinding
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogLoseGame
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogLoseGamePuzzle
-import com.divinee.puwer.view.games.findcards.FindPairGameManager
+import com.divinee.puwer.view.games.findcards.CardGameManager
 
 class TimerAnimation {
     private val delayTimer = 1000L
@@ -24,7 +24,7 @@ class TimerAnimation {
     fun startTimer(
         binding: ViewBinding,
         context: Context,
-        gameManager: FindPairGameManager?
+        gameManager: CardGameManager?
     ) {
         if (initialWidth == 0) {
             when (binding) {

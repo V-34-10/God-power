@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.divinee.puwer.adapters.FindCardAdapter
 import com.divinee.puwer.models.FindCard
 
-class FindPairAdapterManager(
+class AdapterManager(
     private val bindingSetup: BindingSetup
 ) {
     private lateinit var recyclerView: RecyclerView

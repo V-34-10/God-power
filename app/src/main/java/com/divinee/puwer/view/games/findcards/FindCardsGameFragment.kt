@@ -13,7 +13,7 @@ import com.divinee.puwer.view.settings.MusicRunner
 import com.divinee.puwer.view.settings.MusicSetup
 
 class FindCardsGameFragment : BaseFragment<FragmentFindCardsGameBinding>() {
-    private lateinit var gameManager: FindPairGameManager
+    private lateinit var gameManager: CardGameManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +26,7 @@ class FindCardsGameFragment : BaseFragment<FragmentFindCardsGameBinding>() {
         super.onViewCreated(view, savedInstanceState)
         musicSet = MusicSetup(requireContext())
         MusicRunner.musicStartMode(requireContext(), R.raw.music__find_cards, musicSet)
-        context?.let { gameManager = FindPairGameManager(it, binding) }
+        context?.let { gameManager = CardGameManager(it, binding) }
         binding.textBalance.text =
             context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(
                 "balanceScores",

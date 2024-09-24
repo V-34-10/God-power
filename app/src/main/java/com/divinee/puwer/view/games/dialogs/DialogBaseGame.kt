@@ -9,7 +9,7 @@ import com.divinee.puwer.R
 import com.divinee.puwer.animation.TimerAnimation
 import com.divinee.puwer.databinding.FragmentPuzzleGameBinding
 import com.divinee.puwer.view.games.findcards.BindingSetup
-import com.divinee.puwer.view.games.findcards.FindPairGameManager
+import com.divinee.puwer.view.games.findcards.CardGameManager
 import com.divinee.puwer.view.games.puzzle.GameController.restartGame
 
 object DialogBaseGame {
@@ -37,7 +37,7 @@ object DialogBaseGame {
         dialog.show()
     }
 
-    fun runDialogLoseGame(context: Context, gameManager: FindPairGameManager?) {
+    fun runDialogLoseGame(context: Context, gameManager: CardGameManager?) {
         showDialog(context, R.layout.dialog_game_lose, R.id.btn_restart_dialog) {
             gameManager?.resetGame()
         }
@@ -45,7 +45,7 @@ object DialogBaseGame {
 
     fun runDialogVictoryGame(
         context: Context,
-        gameManager: FindPairGameManager?,
+        gameManager: CardGameManager?,
         bindingSetup: BindingSetup?
     ) {
         showDialog(context, R.layout.dialog_game_victory, R.id.btn_next_dialog) {

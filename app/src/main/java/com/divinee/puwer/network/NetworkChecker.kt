@@ -5,10 +5,7 @@ import android.net.ConnectivityManager
 
 object NetworkChecker {
 
-    fun checkEthernetStatus(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo?.isConnectedOrConnecting == true
-    }
+    fun checkEthernetStatus(context: Context): Boolean =
+        (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+            .activeNetworkInfo?.isConnectedOrConnecting == true
 }

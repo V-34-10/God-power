@@ -6,18 +6,17 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivitySettingsBinding
 import com.divinee.puwer.decoration.Edge
+import com.divinee.puwer.view.BaseActivity
 import com.divinee.puwer.view.menu.MenuActivity
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
     private lateinit var musicVolume: VolumeManager
     private lateinit var soundVolume: VolumeManager
-    private lateinit var musicSet: MusicSetup
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -116,20 +115,5 @@ class SettingsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         goToMenu()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        musicSet.resume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        musicSet.pause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        musicSet.release()
     }
 }

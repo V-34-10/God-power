@@ -5,19 +5,18 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityLevelBinding
 import com.divinee.puwer.decoration.Edge
+import com.divinee.puwer.view.BaseActivity
 import com.divinee.puwer.view.games.SceneActivity
 import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.MusicRunner
 import com.divinee.puwer.view.settings.MusicSetup
 
-class LevelActivity : AppCompatActivity() {
+class LevelActivity : BaseActivity() {
     private val binding by lazy { ActivityLevelBinding.inflate(layoutInflater) }
-    private lateinit var musicSet: MusicSetup
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,20 +70,5 @@ class LevelActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         goToRules()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        musicSet.resume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        musicSet.pause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        musicSet.release()
     }
 }

@@ -11,15 +11,15 @@ import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityMenuBinding
 import com.divinee.puwer.decoration.Edge
+import com.divinee.puwer.view.BaseActivity
 import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.MusicRunner
 import com.divinee.puwer.view.settings.MusicSetup
 import com.divinee.puwer.view.settings.SettingsActivity
 import kotlin.system.exitProcess
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity : BaseActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
-    private lateinit var musicSet: MusicSetup
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,20 +89,5 @@ class MenuActivity : AppCompatActivity() {
 
     private fun allFinish() {
         exitProcess(0)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        musicSet.resume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        musicSet.pause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        musicSet.release()
     }
 }

@@ -27,66 +27,96 @@ class FindPairClickHandler(
         gameManager: FindPairGameManager
     ) {
         adapterManager.setOnItemClickListener { pairItem, position ->
-            onPairClick(pairItem, position, context, binding, gameManager)
+            handleClickIfValid(pairItem, position, context, binding, gameManager)
         }
     }
 
-    private fun onPairClick(
+    private fun handleClickIfValid(
         pairItem: FindCard,
         position: Int,
         context: Context,
         binding: FragmentFindCardsGameBinding,
         gameManager: FindPairGameManager
     ) {
-        if (isInvalidClick(pairItem)) return
+        if (!isValidClick(pairItem)) return
 
-        startGameIfNotStarted(binding, context, gameManager)
+        if (!isGameStarted) startGame(binding, context, gameManager)
 
-        pairItem.flipItem = true
-        pairItem.positionItem = position
+        flipCard(pairItem, position)
+        processCardSelection(pairItem, context, gameManager)
+    }
+
+    private fun flipCard(pairItem: FindCard, position: Int) {
+        pairItem.apply {
+            flipItem = true
+            positionItem = position
+        }
         adapterManager.notifyItemChanged(position)
+    }
 
+    private fun processCardSelection(
+        pairItem: FindCard,
+        context: Context,
+        gameManager: FindPairGameManager
+    ) {
         if (firstPair == null) {
             firstPair = pairItem
         } else {
             secondPair = pairItem
             flippingPair = true
-            Handler(Looper.getMainLooper()).postDelayed({
-                checkMatchPair(context, gameManager)
-            }, delayHandler)
+            delayCheckForMatch(context, gameManager)
         }
     }
 
-    private fun isInvalidClick(pairItem: FindCard): Boolean =
-        flippingPair || pairItem.flipItem || pairItem.matchItem
-
-    private fun startGameIfNotStarted(
-        binding: FragmentFindCardsGameBinding,
-        context: Context,
-        gameManager: FindPairGameManager
-    ) {
-        if (!isGameStarted) {
-            timerAnimation.startTimer(binding, context, gameManager)
-            isGameStarted = true
-        }
+    private fun delayCheckForMatch(context: Context, gameManager: FindPairGameManager) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            checkMatchAndProceed(context, gameManager)
+        }, delayHandler)
     }
 
-    private fun checkMatchPair(context: Context, gameManager: FindPairGameManager) {
-        if (firstPair?.picture == secondPair?.picture) {
+    private fun checkMatchAndProceed(context: Context, gameManager: FindPairGameManager) {
+        if (areCardsMatched()) {
             markPairsAsMatched()
         } else {
             resetPairSelection()
         }
+        updateGameState(context, gameManager)
+    }
 
-        stepSearchPair++
-        adapterManager.notifyItemChanged(firstPair?.positionItem ?: -1)
-        adapterManager.notifyItemChanged(secondPair?.positionItem ?: -1)
+    private fun areCardsMatched(): Boolean {
+        return firstPair?.picture == secondPair?.picture
+    }
 
+    private fun isValidClick(pairItem: FindCard): Boolean {
+        return !flippingPair && !pairItem.flipItem && !pairItem.matchItem
+    }
+
+    private fun startGame(
+        binding: FragmentFindCardsGameBinding,
+        context: Context,
+        gameManager: FindPairGameManager
+    ) {
+        timerAnimation.startTimer(binding, context, gameManager)
+        isGameStarted = true
+    }
+
+    private fun updateGameState(context: Context, gameManager: FindPairGameManager) {
+        incrementStepCounter()
+        refreshDisplayedCards()
         resetSelection()
 
         if (checkGameOver()) {
             runDialogVictoryGame(context, gameManager, bindingSetup)
         }
+    }
+
+    private fun incrementStepCounter() {
+        stepSearchPair++
+    }
+
+    private fun refreshDisplayedCards() {
+        firstPair?.let { adapterManager.notifyItemChanged(it.positionItem) }
+        secondPair?.let { adapterManager.notifyItemChanged(it.positionItem) }
     }
 
     private fun markPairsAsMatched() {

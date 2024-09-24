@@ -3,6 +3,7 @@ package com.divinee.puwer.view.games.findcards
 import com.divinee.puwer.models.FindCard
 
 class PairItemManager {
+    private val numPairs: Int = 6
     private val pairList = mutableListOf<FindCard>()
     private val imageList = mutableListOf<Int>()
 
@@ -14,7 +15,7 @@ class PairItemManager {
         }
 
         var position = 0
-        repeat(getNumPairs()) {
+        repeat(numPairs) {
             val imageRes = imageList[it]
             pairList.add(FindCard(imageRes, positionItem = position++))
             pairList.add(FindCard(imageRes, positionItem = position++))
@@ -25,15 +26,10 @@ class PairItemManager {
 
     fun getPairList(): List<FindCard> = pairList
 
-    fun resetPairs() {
-        pairList.forEach { it.reset() }
-    }
+    fun resetPairs() = pairList.forEach { it.reset() }
 
     private fun FindCard.reset() {
         flipItem = false
         matchItem = false
     }
-
 }
-
-fun getNumPairs(): Int = 6

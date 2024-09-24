@@ -15,22 +15,31 @@ class FindPairGameManager(
     private val clickHandler = FindPairClickHandler(adapterManager, pairItemManager, timerAnimation, bindingSetup)
 
     fun initGame() {
-        adapterManager.initRecyclerView(context)
         pairItemManager.setupPairItems()
-        adapterManager.setupAdapter(pairItemManager.getPairList())
+        with(adapterManager) {
+            initRecyclerView(context)
+            setupAdapter(pairItemManager.getPairList())
+        }
         clickHandler.setupClickListener(context, binding, this)
     }
 
     fun resetGame() {
         pairItemManager.resetPairs()
+        pairItemManager.setupPairItems()
         adapterManager.resetAdapter()
-        clickHandler.stepSearchPair = 0
+        resetClickHandlerState()
         timerAnimation.stopTimer(binding)
-        clickHandler.isGameStarted = false
     }
 
     fun destroyGame() {
-        clickHandler.stepSearchPair = 0
+        resetClickHandlerState()
         timerAnimation.stopTimer(binding)
+    }
+
+    private fun resetClickHandlerState() {
+        clickHandler.apply {
+            stepSearchPair = 0
+            isGameStarted = false
+        }
     }
 }

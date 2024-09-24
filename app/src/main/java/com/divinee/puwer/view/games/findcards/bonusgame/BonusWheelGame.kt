@@ -20,34 +20,28 @@ object BonusWheelGame {
         context: Context
     ) {
         val targetAngle = startAngleRotateWheel + 360f + randomAngle()
-        val rotationAnimation = RotateAnimation(
-            startAngleRotateWheel,
-            targetAngle,
-            Animation.RELATIVE_TO_SELF, 0.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f
-        ).apply {
-            duration = DURATION
-            fillAfter = true
-            setAnimationListener(null)
-        }
-        rotationAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?) {}
+        binding.wheel.startAnimation(
+            RotateAnimation(
+                startAngleRotateWheel,
+                targetAngle,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+            ).apply {
+                duration = DURATION
+                fillAfter = true
+                setAnimationListener(object : Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation?) = Unit
+                    override fun onAnimationRepeat(animation: Animation?) = Unit
 
-            override fun onAnimationEnd(animation: Animation?) {
-                startAngleRotateWheel = (targetAngle) % 360f
-
-                updateStatusBalance(
-                    winCoeffSector(startAngleRotateWheel).coefficient,
-                    binding,
-                    context
-                )
-
-                onAnimationEnd()
+                    override fun onAnimationEnd(animation: Animation?) {
+                        startAngleRotateWheel = (targetAngle) % 360f
+                        val coefficient = winCoeffSector(startAngleRotateWheel).coefficient
+                        updateStatusBalance(coefficient, binding, context)
+                        onAnimationEnd()
+                    }
+                })
             }
-
-            override fun onAnimationRepeat(animation: Animation?) {}
-        })
-        binding.wheel.startAnimation(rotationAnimation)
+        )
     }
 
     private fun angleToDegree(angle: Float): Float =

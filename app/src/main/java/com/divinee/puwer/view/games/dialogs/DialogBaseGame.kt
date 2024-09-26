@@ -39,7 +39,7 @@ object DialogBaseGame {
 
     fun runDialogLoseGame(context: Context, gameManager: CardGameManager?) {
         showDialog(context, R.layout.dialog_game_lose, R.id.btn_restart_dialog) {
-            gameManager?.resetGame()
+            gameManager?.stopGame()
         }
     }
 
@@ -49,7 +49,7 @@ object DialogBaseGame {
         bindingSetup: BindingSetup?
     ) {
         showDialog(context, R.layout.dialog_game_victory, R.id.btn_next_dialog) {
-            gameManager?.resetGame()
+            gameManager?.stopGame()
             bindingSetup?.observeButtonBonusGame(context)
         }
     }

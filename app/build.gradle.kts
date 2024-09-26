@@ -51,6 +51,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.exoplayer)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     implementation("com.appodeal.ads:sdk:3.3.2.0") {
         exclude(group = "com.appodeal.ads.sdk.networks", module = "yandex")

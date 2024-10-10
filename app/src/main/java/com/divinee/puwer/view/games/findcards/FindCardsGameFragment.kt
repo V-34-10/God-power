@@ -32,7 +32,6 @@ class FindCardsGameFragment : BaseFragment<FragmentFindCardsGameBinding>() {
                 "balanceScores",
                 context?.getString(R.string.text_default_balance)
             )
-        gameManager.initGame()
         observeControlBarGame()
     }
 
@@ -41,12 +40,12 @@ class FindCardsGameFragment : BaseFragment<FragmentFindCardsGameBinding>() {
         val btnNext = requireView().findViewById<View>(R.id.btn_next)
         btnNext.setOnClickListener {
             it.startAnimation(startAnimation(requireContext()))
-            gameManager.resetGame()
+            gameManager.stopGame()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        gameManager.destroyGame()
+        gameManager.stopGame()
     }
 }

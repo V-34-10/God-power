@@ -10,11 +10,10 @@ import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogVictoryGame
 
 class CardClickHandler(
     private val adapterManager: AdapterManager,
-    private val pairItemManager: PairItemManager,
+    private val cardItemManager: CardItemManager,
     private val timerAnimation: TimerAnimation,
     private val bindingSetup: BindingSetup
 ) {
-    private val delayHandler = 1000L
     private var firstPair: FindCard? = null
     private var secondPair: FindCard? = null
     private var flippingPair = false
@@ -71,7 +70,7 @@ class CardClickHandler(
     private fun delayCheckForMatch(context: Context, gameManager: CardGameManager) {
         Handler(Looper.getMainLooper()).postDelayed({
             checkMatchAndProceed(context, gameManager)
-        }, delayHandler)
+        }, 1000L)
     }
 
     private fun checkMatchAndProceed(context: Context, gameManager: CardGameManager) {
@@ -135,5 +134,5 @@ class CardClickHandler(
         flippingPair = false
     }
 
-    private fun checkGameOver(): Boolean = pairItemManager.getPairList().all { it.matchItem }
+    private fun checkGameOver(): Boolean = cardItemManager.getPairList().all { it.matchItem }
 }

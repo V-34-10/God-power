@@ -2,7 +2,7 @@ package com.divinee.puwer.view.games.findcards
 
 import com.divinee.puwer.models.FindCard
 
-class PairItemManager {
+class CardItemManager {
     private val numPairs: Int = 6
     private val pairList = mutableListOf<FindCard>()
     private val imageList = mutableListOf<Int>()

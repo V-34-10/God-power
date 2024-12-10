@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -55,13 +56,35 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
-    implementation("com.appodeal.ads:sdk:3.3.2.0") {
-        exclude(group = "com.appodeal.ads.sdk.networks", module = "yandex")
-        exclude(group = "com.appodeal.ads.sdk.services", module = "adjust")
-        exclude(group = "com.appodeal.ads.sdk.services", module = "appsflyer")
-        exclude(group = "com.appodeal.ads.sdk.services", module = "facebook_analytics")
-        exclude(group = "com.appodeal.ads.sdk.services", module = "firebase")
-        exclude(group = "com.applovin.mediation", module = "yandex-adapter")
-    }
-    implementation(libs.max.mediation)
+    //Adjust SDK
+    implementation(libs.adjust.adjust.android)
+    implementation(libs.adjust.android.webbridge)
+    implementation(libs.adjust.android.samsung.referrer)
+    implementation(libs.installreferrer.samsung.galaxystore.install.referrer)
+
+    //Google Play Services
+    implementation(libs.play.services.ads.identifier)
+
+    // AppMetrica SDK.
+    implementation(libs.analytics)
+
+    //Advertiser ID
+    implementation(libs.androidx.ads.identifier)
+    implementation(libs.guava)
+
+    //Install Referrer
+    implementation(libs.installreferrer)
+
+    //Firebase
+    implementation(libs.firebase.components)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.analytics)
+
+    // Okhttp3
+    implementation(libs.okhttp)
+    implementation(libs.okhttp3.integration)
+
+    // JSON
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.gson)
 }

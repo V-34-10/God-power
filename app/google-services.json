@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "341094300668",
+    "project_id": "divine-power-d315a",
+    "storage_bucket": "divine-power-d315a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:341094300668:android:0322bfd8f287053ace5079",
+        "android_client_info": {
+          "package_name": "com.divinee.puwer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_nKIcTwpFNS5NtRhi5CzL2Hn8Q1HPZ6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

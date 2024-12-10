@@ -87,4 +87,8 @@ dependencies {
     // JSON
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.gson)
+
+    // Glide
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 }

@@ -43,5 +43,7 @@
     <string name="read_privacy"><u>read</u></string>
     <string name="accept_privacy">accept privacy</string>
     <string name="go_link_privacy">https://www.google.com</string>
+    <string name="background_game">background_block_game</string>
+    <string name="start">Start</string>
 
 </resources>

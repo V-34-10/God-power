@@ -3,6 +3,7 @@ package com.divinee.puwer.view.welcome
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -15,13 +16,14 @@ import com.divinee.puwer.databinding.ActivityMainBinding
 import com.divinee.puwer.decoration.Edge
 import com.divinee.puwer.network.NetworkChecker.checkEthernetStatus
 import com.divinee.puwer.view.daily.DailyActivity
+import com.divinee.puwer.view.menu.MenuActivity
 import com.divinee.puwer.view.privacy.PrivacyActivity
-import com.divinee.puwer.view.welcome.AppodealSetup.initBanner
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val apiRequestManager by lazy { ResponseToServer(this) }
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,16 +35,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun switchRunBannerOrMenu() {
         if (checkEthernetStatus(this)) {
-            initBanner(this)
             binding.buttonStart.isEnabled = false
             binding.buttonStart.visibility = View.GONE
             setAnimationBarForBanner()
 
             lifecycleScope.launch {
-                delay(10000L)
-                if (!isBannerShown()) {
-                    navigateNotUseBanner()
-                }
+                makeApiRequest()
             }
 
         } else {
@@ -50,7 +48,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isBannerShown(): Boolean = AppodealSetup.statusBannerShow
+    private fun makeApiRequest() {
+        lifecycleScope.launch {
+            val response = apiRequestManager.getGameOffers()
+            if (response.isNotEmpty()) {
+                getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
+                    .putBoolean("StatusOffer", true).apply()
+                startActivity(
+                    Intent(
+                        this@MainActivity,
+                        MenuActivity::class.java
+                    ).putParcelableArrayListExtra("listGamesOffer", ArrayList(response))
+                )
+                Log.d("ApiRequest", "Parse Response: ${ArrayList(response)}")
+                finish()
+            } else {
+                getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
+                    .putBoolean("StatusOffer", false).apply()
+                lifecycleScope.launch {
+                    checkNavigateToDaily()
+                }
+            }
+        }
+    }
 
     private fun setAnimationBarForBanner() {
         binding.animationBarLoad.lineSplash.loadingAnim(maxWidth = this.returnProgressWidth())
@@ -59,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun navigateNotUseBanner() {
+    private fun navigateNotUseBanner() {
         binding.buttonStart.isEnabled = true
         binding.buttonStart.visibility = View.VISIBLE
         findViewById<View>(R.id.animationBarLoad).visibility = View.GONE
@@ -69,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun checkNavigateToDaily() {
+    private fun checkNavigateToDaily() {
         val navigateActivity = when {
             isPrivacyAccepted() -> DailyActivity::class.java
             else -> PrivacyActivity::class.java

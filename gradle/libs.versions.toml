@@ -1,5 +1,5 @@
 [versions]
-adjustAdjustAndroid = "4.33.0"
+adjustAdjustAndroid = "5.0.2"
 adsIdentifier = "1.0.0-alpha01"
 agp = "8.1.3"
 analytics = "7.4.0"

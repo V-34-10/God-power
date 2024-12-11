@@ -19,15 +19,15 @@ import java.util.concurrent.TimeUnit
 class ResponseToServer(private val context: Context) {
     private var link: String = context.getString(R.string.link_response_server)
     private val client = OkHttpClient.Builder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
-        .writeTimeout(10, TimeUnit.SECONDS)
+        .connectTimeout(2, TimeUnit.SECONDS)
+        .readTimeout(3, TimeUnit.SECONDS)
+        .writeTimeout(5, TimeUnit.SECONDS)
         .build()
 
     private suspend fun makeRequest(): Response? {
         return withContext(Dispatchers.IO) {
             try {
-                val headers = withTimeout(10000L) {
+                val headers = withTimeout(5000L) {
                     (context.applicationContext as App).getData()
                 }
                 val request = Request.Builder()

@@ -45,6 +45,6 @@
     <string name="go_link_privacy">https://divinnepowerr.com/policy/</string>
     <string name="link_response_server">https://divinnepowerr.com/powersList</string>
     <string name="background_game">background_block_game</string>
-    <string name="start">Start</string>
-
+    <string name="start">Грати</string>
+    <string name="title_offers">Best Offers</string>
 </resources>

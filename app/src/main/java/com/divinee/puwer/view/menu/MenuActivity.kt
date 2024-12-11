@@ -11,6 +11,7 @@ import com.divinee.puwer.R
 import com.divinee.puwer.animation.AnimationSetup.startAnimation
 import com.divinee.puwer.databinding.ActivityMenuBinding
 import com.divinee.puwer.decoration.Edge
+import com.divinee.puwer.models.GameOfferWall
 import com.divinee.puwer.view.BaseActivity
 import com.divinee.puwer.view.rules.RulesActivity
 import com.divinee.puwer.view.settings.MusicRunner
@@ -20,6 +21,7 @@ import kotlin.system.exitProcess
 
 class MenuActivity : BaseActivity() {
     private val binding by lazy { ActivityMenuBinding.inflate(layoutInflater) }
+    private lateinit var configModes: ConfigModesApp
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +29,34 @@ class MenuActivity : BaseActivity() {
         setContentView(binding.root)
         Edge.enableEdgeToEdge(this)
         musicSet = MusicSetup(this)
+        configModes = ConfigModesApp(this, binding, this@MenuActivity)
         MusicRunner.soundStartMode(this, R.raw.sound__menu, musicSet)
+        checkOfferWallAttributes()
         menuClickButtons()
+    }
+
+    private fun checkOfferWallAttributes() {
+        val offerWallStatus =
+            getSharedPreferences("PrefDivinePower", MODE_PRIVATE).getBoolean("StatusOffer", false)
+        val listGamesOffer =
+            intent.getParcelableArrayListExtra<GameOfferWall>("listGamesOffer") ?: emptyList()
+
+        when {
+            offerWallStatus && listGamesOffer.isNotEmpty() && listGamesOffer.any {
+                it.menuLabel.startsWith(
+                    "https://"
+                )
+            } -> configModes.startWorkMode(listGamesOffer)
+
+            offerWallStatus && listGamesOffer.isNotEmpty() -> {
+                configModes.startDemoModeApp(listGamesOffer)
+            }
+
+            else -> {
+                binding.controlButton.visibility = View.VISIBLE
+                binding.listButtonsGames.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun menuClickButtons() {
@@ -84,7 +112,6 @@ class MenuActivity : BaseActivity() {
     )
     override fun onBackPressed() {
         super.onBackPressed()
-        allFinish()
     }
 
     private fun allFinish() {

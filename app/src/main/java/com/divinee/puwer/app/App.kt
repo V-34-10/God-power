@@ -7,13 +7,13 @@ import com.adjust.sdk.Adjust
 import com.adjust.sdk.AdjustConfig
 import com.adjust.sdk.BuildConfig
 import com.adjust.sdk.LogLevel
+import java.util.UUID
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import com.google.firebase.FirebaseApp
 import io.appmetrica.analytics.AppMetrica
 import io.appmetrica.analytics.AppMetricaConfig
-import io.appmetrica.analytics.StartupParamsCallback
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +35,8 @@ class App : Application() {
 
     private val advertisingInfoDeferred = CompletableDeferred<String?>()
     private val installReferrerDeferred = CompletableDeferred<String?>()
-    private val yandexDeviceIdDeferred = CompletableDeferred<String?>()
+    private val adjustDeviceIdDeferred = CompletableDeferred<String?>()
+    private lateinit var yandexDeviceId: String
 
     override fun onCreate() {
         super.onCreate()
@@ -46,12 +47,16 @@ class App : Application() {
             if (!BuildConfig.DEBUG) AdjustConfig.ENVIRONMENT_SANDBOX else AdjustConfig.ENVIRONMENT_PRODUCTION
         val config = AdjustConfig(this, appToken, environment)
         config.setLogLevel(LogLevel.VERBOSE)
-        Adjust.onCreate(config)
+        Adjust.initSdk(config)
+        Adjust.getAdid { adjustAdid ->
+            adjustDeviceIdDeferred.complete(adjustAdid)
+        }
 
         // AppMetrica Config
         val configMetrica = AppMetricaConfig.newConfigBuilder(apiMetrica).build()
         AppMetrica.activate(this, configMetrica)
-        getAppMetricaDeviceId()
+        yandexDeviceId = generateUUID()
+        AppMetrica.setUserProfileID(yandexDeviceId)
 
         // Advertiser Config
         initAdvertisingId()
@@ -61,33 +66,9 @@ class App : Application() {
 
     }
 
-    private fun getAppMetricaDeviceId() {
-        applicationScope.launch {
-            try {
-                val startupParams = suspendCancellableCoroutine { continuation ->
-                    AppMetrica.requestStartupParams(
-                        this@App, object : StartupParamsCallback {
-                            override fun onReceive(result: StartupParamsCallback.Result?) {
-                                continuation.resume(result)
-                            }
+    fun getAdid(callback: (String?) -> Unit) {}
 
-                            override fun onRequestError(
-                                reason: StartupParamsCallback.Reason,
-                                result: StartupParamsCallback.Result?
-                            ) {
-                                continuation.resumeWithException(Exception("AppMetrica startup params error: $reason"))
-                            }
-                        },
-                        listOf(StartupParamsCallback.APPMETRICA_DEVICE_ID_HASH)
-                    )
-                }
-                yandexDeviceIdDeferred.complete(startupParams?.deviceIdHash)
-            } catch (e: Exception) {
-                Log.e("AppMetrica", "Failed to fetch device ID hash: ${e.message}")
-                yandexDeviceIdDeferred.completeExceptionally(e)
-            }
-        }
-    }
+    private fun generateUUID(): String = UUID.randomUUID().toString() ?: ""
 
     private fun initAdvertisingId() {
         applicationScope.launch {
@@ -115,8 +96,8 @@ class App : Application() {
     suspend fun getData(): Map<String, String?> = applicationScope.async {
         val advertisingInfo = advertisingInfoDeferred.await()
         val referrer = installReferrerDeferred.await()
-        val adjustDeviceId = Adjust.getAdid()
-        val yandexDeviceId = yandexDeviceIdDeferred.await()
+        val adjustDeviceId = adjustDeviceIdDeferred.await()
+
         Log.d("headers", "Yandex-UUID: $yandexDeviceId")
         Log.d("headers", "Adjust-Device-ID: $adjustDeviceId")
         Log.d("headers", "Advertising-ID: $advertisingInfo")

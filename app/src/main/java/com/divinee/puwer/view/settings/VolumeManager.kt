@@ -5,14 +5,13 @@ import android.media.AudioManager
 
 class VolumeManager(context: Context) {
     private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-    private var savedVolume: Int = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+    private var gameMusicVolume: Int = 10
 
     fun setVolume(on: Boolean) {
         if (on) {
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, savedVolume, 0)
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, gameMusicVolume, 0)
         } else {
-            savedVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0)
+            audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0)
         }
     }
 }

@@ -12,17 +12,20 @@ class MusicSetup(private val context: Context) {
 
     fun playSound(@RawRes soundResId: Int, loop: Boolean = false) {
         if (currentSoundResId == soundResId && exoPlayer?.isPlaying == true) return
-        release()
-        val mediaItem = MediaItem.fromUri("android.resource://${context.packageName}/$soundResId")
-        exoPlayer = ExoPlayer.Builder(context)
-            .build()
-            .also {
-                it.setMediaItem(mediaItem)
-                it.repeatMode = if (loop) Player.REPEAT_MODE_ALL else Player.REPEAT_MODE_OFF
-                it.prepare()
-                it.playWhenReady = true
-                currentSoundResId = soundResId
-            }
+
+        if (exoPlayer == null) {
+            val mediaItem = MediaItem.fromUri("android.resource://${context.packageName}/$soundResId")
+            exoPlayer = ExoPlayer.Builder(context)
+                .build()
+                .also {
+                    it.setMediaItem(mediaItem)
+                    it.repeatMode = if (loop) Player.REPEAT_MODE_ALL else Player.REPEAT_MODE_OFF
+                    it.prepare()
+                    currentSoundResId = soundResId
+                }
+        }
+
+        exoPlayer?.playWhenReady = true
     }
 
     fun pause() = exoPlayer?.pause()

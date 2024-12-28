@@ -71,34 +71,36 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun observeSwitchMusicButtons() {
-        val musicStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
+        var musicStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
             .getBoolean("musicStatus", false)
-        val soundStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
+        var soundStatus = this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)
             .getBoolean("soundStatus", false)
         binding.btnSwitchMusic.setOnClickListener {
+            musicStatus = !musicStatus
+            getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
+                .putBoolean("musicStatus", musicStatus).apply()
+
             if (musicStatus) {
-                musicVolume.setVolume(false)
-                this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
-                    .putBoolean("musicStatus", false).apply()
-                binding.btnSwitchMusic.setBackgroundResource(R.drawable.switch_off_btn)
-            } else {
                 musicVolume.setVolume(true)
-                this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
-                    .putBoolean("musicStatus", true).apply()
+                musicSet.playSound(R.raw.sound__menu, true)
                 binding.btnSwitchMusic.setBackgroundResource(R.drawable.switch_on_btn)
+            } else {
+                musicVolume.setVolume(false)
+                musicSet.pause()
+                binding.btnSwitchMusic.setBackgroundResource(R.drawable.switch_off_btn)
             }
         }
+
         binding.btnSwitchSound.setOnClickListener {
+            soundStatus = !soundStatus
+            getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
+                .putBoolean("soundStatus", soundStatus).apply()
             if (soundStatus) {
-                soundVolume.setVolume(false)
-                this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
-                    .putBoolean("soundStatus", false).apply()
-                binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_off_btn)
-            } else {
                 soundVolume.setVolume(true)
-                this.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
-                    .putBoolean("soundStatus", true).apply()
                 binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_on_btn)
+            } else {
+                soundVolume.setVolume(false) // Mute sound effects
+                binding.btnSwitchSound.setBackgroundResource(R.drawable.switch_off_btn)
             }
         }
     }

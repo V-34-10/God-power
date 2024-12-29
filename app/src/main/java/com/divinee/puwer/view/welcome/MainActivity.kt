@@ -52,20 +52,30 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val response = apiRequestManager.getGameOffers()
             if (response.isNotEmpty()) {
-                getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
-                    .putBoolean("StatusOffer", true).apply()
-                startActivity(
-                    Intent(
-                        this@MainActivity,
-                        MenuActivity::class.java
-                    ).putParcelableArrayListExtra("listGamesOffer", ArrayList(response))
-                )
-                Log.d("ApiRequest", "Parse Response: ${ArrayList(response)}")
-                finish()
+                val isDemoMode = response.any { offer ->
+                    offer.menuLabel?.startsWith("https://") != true
+                }
+
+                if (isDemoMode) {
+                    Log.d("ApiRequest", "Demo mode detected. menuLabel is not valid URL.")
+                    checkNavigateToDaily()
+                } else {
+                    getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
+                        .putBoolean("StatusOffer", true).apply()
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            MenuActivity::class.java
+                        ).putParcelableArrayListExtra("listGamesOffer", ArrayList(response))
+                    )
+                    Log.d("ApiRequest", "Parse Response: ${ArrayList(response)}")
+                    finish()
+                }
             } else {
                 getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
                     .putBoolean("StatusOffer", false).apply()
                 lifecycleScope.launch {
+                    delay(2000L)
                     checkNavigateToDaily()
                 }
             }

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             val response = apiRequestManager.getGameOffers()
             if (response.isNotEmpty()) {
                 val isDemoMode = response.any { offer ->
-                    !offer.menuLabel.startsWith("https://")
+                    offer.menuLabel?.startsWith("https://") != true
                 }
 
                 if (isDemoMode) {

@@ -20,6 +20,7 @@ class TimerAnimation {
     var elapsedTime: Long = 0
     private val animationDuration = 60000L
     private var initialWidth = 0
+    private var valueAnimator: ValueAnimator? = null
 
     fun startTimer(
         binding: ViewBinding,
@@ -63,10 +64,10 @@ class TimerAnimation {
                                 .getString("levelGame", context.getString(R.string.easy_level_btn))
                                 .toString()
                         )
-                    }
                 }
-            }.start()
-        }
+            }
+        }.start()
+    }
 
     private fun updateLineTimerWidth(
         millisUntilFinished: Long,
@@ -80,21 +81,24 @@ class TimerAnimation {
 
         val newWidth = (millisUntilFinished / animationDuration.toFloat() * initialWidth).toInt()
 
-        val animation = lineTimer?.width?.let { ValueAnimator.ofInt(it, newWidth) }
-        animation?.duration = delayTimer
-        animation?.addUpdateListener {
-            val value = it.animatedValue as Int
-            val layoutParams = lineTimer.layoutParams
-            layoutParams?.width = value
-            lineTimer.layoutParams = layoutParams
+        valueAnimator?.cancel()
+        valueAnimator = lineTimer?.width?.let { ValueAnimator.ofInt(it, newWidth) }?.apply {
+            duration = delayTimer
+            addUpdateListener {
+                val value = it.animatedValue as Int
+                val layoutParams = lineTimer.layoutParams
+                layoutParams?.width = value
+                lineTimer.layoutParams = layoutParams
+            }
+            start()
         }
-        animation?.start()
     }
 
     fun stopTimer(
         binding: ViewBinding
     ) {
         timer?.cancel()
+        valueAnimator?.cancel()
         when (binding) {
             is FragmentFindCardsGameBinding -> resetTimer(binding)
             is FragmentPuzzleGameBinding -> resetTimer(binding)

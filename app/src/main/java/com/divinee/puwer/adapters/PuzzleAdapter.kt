@@ -103,11 +103,14 @@ class PuzzleAdapter(
         notifyItemChanged(fromPosition)
         notifyItemChanged(toPosition)
 
-        if (PuzzleHelper.checkCard(cardList, winListPuzzle)) runDialogVictoryGamePuzzle(
-            context,
-            timerAnimation,
-            binding,
-            selectedLevel
-        )
+        if (PuzzleHelper.checkCard(cardList, winListPuzzle)) {
+            runDialogVictoryGamePuzzle(
+                context,
+                timerAnimation,
+                binding,
+                selectedLevel
+            )
+            timerAnimation.stopTimer(binding)
+        }
     }
 }

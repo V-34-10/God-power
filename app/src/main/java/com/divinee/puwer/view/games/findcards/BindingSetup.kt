@@ -50,12 +50,14 @@ class BindingSetup(private val binding: FragmentFindCardsGameBinding) {
             it.isEnabled = false
             it.startAnimation(startAnimation(context))
             animatedRotateWheel(binding, {
-                it.isEnabled = true
+
             }, context)
 
             Handler(Looper.getMainLooper()).postDelayed({
                 goneBonusGame()
+                it.isEnabled = true
             }, 3000)
+
         }
     }
 }

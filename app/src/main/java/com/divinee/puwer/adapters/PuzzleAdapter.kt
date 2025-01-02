@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.divinee.puwer.R
@@ -12,6 +13,7 @@ import com.divinee.puwer.animation.TimerAnimation
 import com.divinee.puwer.databinding.FragmentPuzzleGameBinding
 import com.divinee.puwer.models.Puzzle
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogVictoryGamePuzzle
+import com.divinee.puwer.view.games.findcards.bonusgame.BonusWheelGame.stringToNumber
 import com.divinee.puwer.view.games.puzzle.PuzzleHelper
 import com.divinee.puwer.view.games.puzzle.PuzzleImageSetup
 
@@ -28,8 +30,10 @@ class PuzzleAdapter(
     private val binding: FragmentPuzzleGameBinding,
 ) : RecyclerView.Adapter<PuzzleAdapter.ViewHolder>() {
 
-    private var emptyPosition: Int = cardList.size - 1
     private val puzzleImageSetup = PuzzleImageSetup(context)
+    private var emptyPosition: Int =
+        cardList.indexOfFirst { it.image == R.drawable.puzzle_easy_8 }
+
     private val levelConfig = puzzleImageSetup.getLevelConfig(selectedLevel)
     private val winListPuzzle: List<Int> = levelConfig.winListPuzzle
     private var timerStarted = false
@@ -111,6 +115,15 @@ class PuzzleAdapter(
                 selectedLevel
             )
             timerAnimation.stopTimer(binding)
+            balanceWhenVictoryGame(binding)
         }
+    }
+
+    private fun balanceWhenVictoryGame(binding: FragmentPuzzleGameBinding) {
+        var balance = stringToNumber(binding.textBalance.text.toString()) ?: 0
+        balance += 200
+        binding.textBalance.text = balance.toString()
+        context.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
+            .putString("balanceScores", balance.toString()).apply()
     }
 }

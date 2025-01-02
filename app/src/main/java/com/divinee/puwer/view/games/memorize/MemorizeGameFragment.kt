@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity.MODE_PRIVATE
 import com.divinee.puwer.R
 import com.divinee.puwer.databinding.FragmentMemorizeGameBinding
 import com.divinee.puwer.view.games.BaseFragment
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogLoseGameMemorize
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogVictoryGameMemorize
+import com.divinee.puwer.view.games.findcards.bonusgame.BonusWheelGame.stringToNumber
 import com.divinee.puwer.view.settings.MusicRunner
 import com.divinee.puwer.view.settings.MusicSetup
 
@@ -73,6 +75,11 @@ class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
         for (i in 0..2) {
             choiceCoins[i].setOnClickListener { onChoiceCoinClick(i) }
         }
+        binding.textBalance.text =
+            context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.getString(
+                "balanceScores",
+                context?.getString(R.string.text_default_balance)
+            )
         observeControlBarGame()
     }
 
@@ -93,12 +100,6 @@ class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
         selectedChoiceCoinIndex = -1
         for (i in 0..2) {
             choiceCoins[i].alpha = 1.0f
-        }
-
-        when (selectedCoins.size) {
-            1 -> binding.statusGame.setImageResource(R.drawable.status_win_one_items_memorize_game)
-            2 -> binding.statusGame.setImageResource(R.drawable.status_win_two_items_memorize_game)
-            3 -> binding.statusGame.setImageResource(R.drawable.status_win_memorize_game)
         }
 
         if (selectedCoins.size == 3) {
@@ -159,8 +160,10 @@ class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
         val userCombination = selectedCoins
         if (userCombination == correctCombination) {
             runDialogVictoryGameMemorize(requireContext()) { resetGame() }
+            balanceWhenVictoryGame(binding)
         } else {
             runDialogLoseGameMemorize(requireContext()) { resetGame() }
+            balanceWhenLoseGame(binding)
         }
     }
 
@@ -173,6 +176,7 @@ class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
 
             override fun onFinish() {
                 runDialogLoseGameMemorize(requireContext()) { resetGame() }
+                balanceWhenLoseGame(binding)
                 resetGame()
             }
         }.start()
@@ -192,7 +196,6 @@ class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
         updateTimerTextView()
 
         selectedCoins.clear()
-        binding.statusGame.setImageResource(R.drawable.status_default_win_memorize_game)
         binding.btnNext.visibility = View.GONE
 
         for (i in 0..2) {
@@ -213,6 +216,21 @@ class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
                 setCoinToPlaceholder(i)
             }
         }
+    }
+
+    private fun balanceWhenVictoryGame(binding: FragmentMemorizeGameBinding) =
+        updateBalance(binding, 200)
+
+    private fun balanceWhenLoseGame(binding: FragmentMemorizeGameBinding) =
+        updateBalance(binding, -200)
+
+    private fun updateBalance(binding: FragmentMemorizeGameBinding, amount: Int) {
+        val currentBalanceText = binding.textBalance.text?.toString()
+        val currentBalance = currentBalanceText?.let { stringToNumber(it) } ?: 0
+        val newBalance = (currentBalance + amount).coerceAtLeast(0)
+        binding.textBalance.text = newBalance.toString()
+        context?.getSharedPreferences("PrefDivinePower", MODE_PRIVATE)?.edit()
+            ?.putString("balanceScores", newBalance.toString())?.apply()
     }
 
     override fun onDestroy() {

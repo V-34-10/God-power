@@ -3,12 +3,9 @@ package com.divinee.puwer.view.games.puzzle
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.recyclerview.widget.GridLayoutManager
-import com.divinee.puwer.R
 import com.divinee.puwer.adapters.PuzzleAdapter
 import com.divinee.puwer.animation.TimerAnimation
 import com.divinee.puwer.databinding.FragmentPuzzleGameBinding
-import com.divinee.puwer.models.Puzzle
-
 
 @SuppressLint("StaticFieldLeak")
 object GameController {
@@ -35,25 +32,6 @@ object GameController {
         initRecyclerAdapter(binding, selectLevel, context, timerAnimation)
     }
 
-    @SuppressLint("DiscouragedApi")
-    private fun getShuffledPuzzles(selectLevel: String, context: Context): MutableList<Puzzle> {
-        val puzzleImageSetup = PuzzleImageSetup(context)
-        val levelConfig = puzzleImageSetup.getLevelConfig(selectLevel)
-        val resourcesPuzzles = levelConfig.winListPuzzle.dropLast(1)
-        val sectorPuzzle =
-            resourcesPuzzles.mapIndexed { index, resourceId -> Puzzle(resourceId, index) }
-                .toMutableList()
-
-        sectorPuzzle.shuffle()
-        sectorPuzzle.add(
-            Puzzle(
-                R.drawable.puzzle_easy_8,
-                levelConfig.endPuzzle
-            )
-        )
-        return sectorPuzzle
-    }
-
     private fun initRecyclerAdapter(
         binding: FragmentPuzzleGameBinding,
         selectLevel: String,
@@ -64,7 +42,7 @@ object GameController {
         val levelConfig = puzzleImageSetup.getLevelConfig(selectLevel)
         puzzleAdapter = PuzzleAdapter(
             binding.sceneCard,
-            getShuffledPuzzles(selectLevel, context),
+            puzzleImageSetup.preparationPuzzles(selectLevel),
             selectLevel,
             context,
             timerAnimation,

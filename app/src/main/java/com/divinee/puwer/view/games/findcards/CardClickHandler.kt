@@ -42,7 +42,7 @@ class CardClickHandler(
         if (!isGameStarted) startGame(binding, context, gameManager)
 
         flipCard(pairItem, position)
-        processCardSelection(pairItem, context, gameManager)
+        processCardSelection(pairItem, context, gameManager, binding)
     }
 
     private fun flipCard(pairItem: FindCard, position: Int) {
@@ -56,30 +56,31 @@ class CardClickHandler(
     private fun processCardSelection(
         pairItem: FindCard,
         context: Context,
-        gameManager: CardGameManager
+        gameManager: CardGameManager,
+        binding: FragmentFindCardsGameBinding,
     ) {
         if (firstPair == null) {
             firstPair = pairItem
         } else {
             secondPair = pairItem
             flippingPair = true
-            delayCheckForMatch(context, gameManager)
+            delayCheckForMatch(context, gameManager, binding)
         }
     }
 
-    private fun delayCheckForMatch(context: Context, gameManager: CardGameManager) {
+    private fun delayCheckForMatch(context: Context, gameManager: CardGameManager, binding: FragmentFindCardsGameBinding,) {
         Handler(Looper.getMainLooper()).postDelayed({
-            checkMatchAndProceed(context, gameManager)
+            checkMatchAndProceed(context, gameManager, binding)
         }, 1000L)
     }
 
-    private fun checkMatchAndProceed(context: Context, gameManager: CardGameManager) {
+    private fun checkMatchAndProceed(context: Context, gameManager: CardGameManager, binding: FragmentFindCardsGameBinding,) {
         if (areCardsMatched()) {
             markPairsAsMatched()
         } else {
             resetPairSelection()
         }
-        updateGameState(context, gameManager)
+        updateGameState(context, gameManager, binding)
     }
 
     private fun areCardsMatched(): Boolean {
@@ -99,13 +100,14 @@ class CardClickHandler(
         isGameStarted = true
     }
 
-    private fun updateGameState(context: Context, gameManager: CardGameManager) {
+    private fun updateGameState(context: Context, gameManager: CardGameManager, binding: FragmentFindCardsGameBinding,) {
         incrementStepCounter()
         refreshDisplayedCards()
         resetSelection()
 
         if (checkGameOver()) {
             runDialogVictoryGame(context, gameManager, bindingSetup)
+            timerAnimation.stopTimer(binding)
         }
     }
 

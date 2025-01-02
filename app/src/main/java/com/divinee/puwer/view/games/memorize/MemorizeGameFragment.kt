@@ -161,9 +161,11 @@ class MemorizeGameFragment : BaseFragment<FragmentMemorizeGameBinding>() {
         if (userCombination == correctCombination) {
             runDialogVictoryGameMemorize(requireContext()) { resetGame() }
             balanceWhenVictoryGame(binding)
+            countDownTimer.cancel()
         } else {
             runDialogLoseGameMemorize(requireContext()) { resetGame() }
             balanceWhenLoseGame(binding)
+            countDownTimer.cancel()
         }
     }
 

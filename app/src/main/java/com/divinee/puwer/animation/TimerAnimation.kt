@@ -12,6 +12,7 @@ import com.divinee.puwer.databinding.FragmentPuzzleGameBinding
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogLoseGame
 import com.divinee.puwer.view.games.dialogs.DialogBaseGame.runDialogLoseGamePuzzle
 import com.divinee.puwer.view.games.findcards.CardGameManager
+import com.divinee.puwer.view.games.findcards.bonusgame.BonusWheelGame.stringToNumber
 
 class TimerAnimation {
     private val delayTimer = 1000L
@@ -54,8 +55,12 @@ class TimerAnimation {
 
             override fun onFinish() {
                 when (binding) {
-                    is FragmentFindCardsGameBinding -> runDialogLoseGame(context, gameManager)
-                    is FragmentPuzzleGameBinding ->
+                    is FragmentFindCardsGameBinding -> {
+                        runDialogLoseGame(context, gameManager)
+                        balanceWhenLoseGame(binding, context)
+                    }
+
+                    is FragmentPuzzleGameBinding -> {
                         runDialogLoseGamePuzzle(
                             context,
                             this@TimerAnimation,
@@ -64,6 +69,8 @@ class TimerAnimation {
                                 .getString("levelGame", context.getString(R.string.easy_level_btn))
                                 .toString()
                         )
+                        balanceWhenLoseGame(binding, context)
+                    }
                 }
             }
         }.start()
@@ -123,5 +130,23 @@ class TimerAnimation {
         val layoutParams = lineTimer?.layoutParams
         layoutParams?.width = initialWidth
         lineTimer?.layoutParams = layoutParams
+    }
+
+    private fun balanceWhenLoseGame(binding: ViewBinding, context: Context) {
+        val balanceTextView = when (binding) {
+            is FragmentFindCardsGameBinding -> binding.textBalance
+            is FragmentPuzzleGameBinding -> binding.textBalance
+            else -> return
+        }
+
+        var balance = stringToNumber(balanceTextView.text.toString()) ?: 0
+
+        if (balance > 0) {
+            balance -= 200
+            balance = maxOf(0, balance)
+        }
+        balanceTextView.text = balance.toString()
+        context.getSharedPreferences("PrefDivinePower", MODE_PRIVATE).edit()
+            .putString("balanceScores", balance.toString()).apply()
     }
 }
